@@ -11,7 +11,13 @@ int main()
     ls.add(9);
     ls.add(15);
     ls.add(7);
-    ls.remove(); // remove no final
+
+    if(ls.isFull()){
+        ls.resize();
+    } else{
+        ls.add(20);
+    }
+    //ls.remove(); // remove no final
     ls.print();  // mostra elementosListSeq ls(5);
 
     return 0;
