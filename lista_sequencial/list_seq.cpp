@@ -32,6 +32,12 @@ bool ListSeq ::isFull()
     return size == capacity;
 }
 
+void ListSeq::destroy(){}
+
+bool ListSeq ::resize(){
+    return true;
+}
+
 bool ListSeq ::print()
 {
 
