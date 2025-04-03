@@ -11,27 +11,29 @@ public:
     int *data;
 
     ListSeq(int _capacity);
-    void destroy();
 
-    bool resize();
+    void destroy(); //feito
 
-    bool print();
+    bool resize(); //feito
 
-    int find(int elem);
+    bool print(); //feito
 
-    int get(int pos);
+    int find(int elem); //feito
 
-    bool isEmpty();
+    int get(int pos); //feito
 
-    bool isFull();
+    bool isEmpty(); //feito
 
-    bool add(int elem);
+    bool isFull(); //feito
 
-    void remove();
+    bool add(int elem); //feito
+
+    void remove(); //feito
 
     void insert(int elem, int pos);
 
     void removeAt(int pos);
 
     bool addSorted(int elem);
+
 };
