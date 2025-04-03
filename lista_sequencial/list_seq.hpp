@@ -30,9 +30,9 @@ public:
 
     void remove(); //feito
 
-    void insert(int elem, int pos);
+    void insert(int elem, int pos); //feito
 
-    void removeAt(int pos);
+    void removeAt(int pos); //feito
 
     bool addSorted(int elem);
 

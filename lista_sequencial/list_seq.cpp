@@ -126,11 +126,15 @@ void ListSeq::insert(int elem, int pos)
     size++;
 }
 
-void ListSeq::removeAt(int pos){
-    if (pos==size-1) size--;
+bool ListSeq::addSorted(int elem){
+    if (isFull()) resize();
     for (int i = 0; i < size; i++)
     {
-        /* code */
+        if (data[i]>elem)
+        {
+            insert(elem,i-1);
+        }
+        
     }
     
 }
