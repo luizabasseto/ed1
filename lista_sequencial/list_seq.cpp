@@ -75,36 +75,62 @@ void ListSeq::removeAt(int pos)
 {
     if (pos < size)
     {
-        for (int i = pos; i < size-1; i++){
-            data[i]=data[i+1];
+        for (int i = pos; i < size - 1; i++)
+        {
+            data[i] = data[i + 1];
         }
         size--;
     }
 }
 
-int ListSeq::find(int elem){
+int ListSeq::find(int elem)
+{
     for (int i = 0; i < size; i++)
     {
-        if(elem==data[i]){
+        if (elem == data[i])
+        {
             return i;
         }
     }
     return 0;
 }
 
-int ListSeq::get(int pos){
+int ListSeq::get(int pos)
+{
     for (int i = 0; i < size; i++)
     {
-        if(pos==i){
+        if (pos == i)
+        {
             return data[i];
         }
     }
     return 0;
 }
 
-bool ListSeq::add(int elem){
+bool ListSeq::add(int elem)
+{
     if (isFull()) resize();
     data[size++] = elem;
-    
+
     return true;
+}
+
+void ListSeq::insert(int elem, int pos)
+{
+    if (isFull()) resize();
+    for (int i = size; i> pos; i--)
+    {
+        data[i] = data[size - i - 1];
+    }
+    data[pos]=elem;
+    size++;
+}
+
+void ListSeq::removeAt(int pos){
+    if (pos==size-1) size--;
+    for (int i = 0; i < size; i++)
+    {
+        /* code */
+    }
+    
 }
