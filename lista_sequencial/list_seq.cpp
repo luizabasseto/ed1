@@ -92,27 +92,14 @@ int ListSeq::find(int elem)
             return i;
         }
     }
-    return 0;
+    return -1;
 }
 
 int ListSeq::get(int pos)
 {
-    for (int i = 0; i < size; i++)
-    {
-        if (pos == i)
-        {
-            return data[i];
-        }
-    }
-    return 0;
-}
-
-bool ListSeq::add(int elem)
-{
-    if (isFull()) resize();
-    data[size++] = elem;
-
-    return true;
+    if (pos >= 0 && pos < size) return data[pos];
+    
+    return -1;
 }
 
 void ListSeq::insert(int elem, int pos)
@@ -120,7 +107,7 @@ void ListSeq::insert(int elem, int pos)
     if (isFull()) resize();
     for (int i = size; i> pos; i--)
     {
-        data[i] = data[size - i - 1];
+        data[i] = data[i - 1];
     }
     data[pos]=elem;
     size++;
