@@ -120,8 +120,9 @@ bool ListSeq::addSorted(int elem){
         if (data[i]>elem)
         {
             insert(elem,i-1);
+            return true;
         }
         
     }
-    
+    return false;
 }
