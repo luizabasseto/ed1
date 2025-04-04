@@ -32,7 +32,9 @@ int LinkedList::get(int pos) {
     return 0;
 }
 
-void LinkedList::print() {}
+void LinkedList::print() {
+    
+}
 
 int LinkedList::size() {
     return 0;
