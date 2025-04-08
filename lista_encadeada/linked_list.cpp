@@ -44,7 +44,17 @@ bool LinkedList::push_back(int key)
 
 bool LinkedList::equals(LinkedList *other)
 {
-    return false;
+    Node* a1 = this-> head;
+    Node* a2 = other-> head;
+    while(a1 && a2){
+        if(a1->key == a2->key){
+            a1 = a1->next;
+            a2 = a2->next;
+        } else{
+            return false;
+        }
+    }
+    return true;
 }
 
 int LinkedList::get(int pos)
