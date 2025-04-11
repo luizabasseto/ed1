@@ -2,6 +2,7 @@
     "nuxt.isNuxtApp": false,
     "files.associations": {
         "deque": "cpp",
-        "list": "cpp"
+        "list": "cpp",
+        "new": "cpp"
     }
 }

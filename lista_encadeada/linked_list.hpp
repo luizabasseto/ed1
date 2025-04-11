@@ -17,27 +17,28 @@ public:
     LinkedList();
     ~LinkedList();
     
-    bool push_front(int key);
-    bool pop_front();
+    bool push_front(int key); //feito
+    bool pop_front(); //feito
     
-    void print();
-    int size();
-    bool empty();
+    void print(); //feito
+    int size(); //feito
+    bool empty(); //feito
     
-    bool push_back(int key);
+    bool push_back(int key); //feito
     bool pop_back();
     
-    int get(int pos);
+    int get(int pos); //feito
     Node* find(int key);
     
     void insert_after(int key, Node* pos);
     bool remove_after(Node* pos);
     
-    bool insert(int key, int pos);
+    bool insert(int key, int pos); //feito
+
     bool remove(int pos);
     bool remove(int key);
     
     bool insert_sorted(int key);
 
-    bool equals(LinkedList* other);
+    bool equals(LinkedList* other); //feito
 };

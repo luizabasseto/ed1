@@ -39,18 +39,33 @@ bool LinkedList::pop_front()
 
 bool LinkedList::push_back(int key)
 {
+    Node *aux = this->head;
+    int siz = size();
+    for (int i = 0; i < siz - 1; i++)
+    {
+        aux = aux->next;
+    }
+    Node *novo = new Node{key, aux->next};
+    if(!novo) return false;
+
+    aux->next = novo;
+    novo->next = nullptr;
     return true;
 }
 
 bool LinkedList::equals(LinkedList *other)
 {
-    Node* a1 = this-> head;
-    Node* a2 = other-> head;
-    while(a1 && a2){
-        if(a1->key == a2->key){
+    Node *a1 = this->head;
+    Node *a2 = other->head;
+    while (a1 && a2)
+    {
+        if (a1->key == a2->key)
+        {
             a1 = a1->next;
             a2 = a2->next;
-        } else{
+        }
+        else
+        {
             return false;
         }
     }
@@ -59,7 +74,21 @@ bool LinkedList::equals(LinkedList *other)
 
 int LinkedList::get(int pos)
 {
-    return 0;
+    int siz = size();
+    if (pos == siz - 1)
+        return 0;
+    Node* aux = this-> head;
+    for (int i = 0; i < siz; i++)
+    {
+        aux = aux->next;
+        if(i==pos){
+            break;
+        }
+    }
+
+    if(!aux) return -1;
+
+    return aux->key;
 }
 
 void LinkedList::print()
@@ -87,7 +116,17 @@ int LinkedList::size()
 
 Node *LinkedList::find(int key)
 {
-    return nullptr;
+    int siz =size();
+    Node* aux= this->head;
+    for (int i = 0; i < siz; i++)
+    {
+        aux=aux->next;
+        if(aux->key == key){
+            return aux;
+        }
+    }
+    
+    if(!aux)return nullptr;
 }
 
 void LinkedList::insert_after(int key, Node *pos)
@@ -103,18 +142,18 @@ bool LinkedList::remove_after(Node *pos)
 
 bool LinkedList::insert(int key, int pos)
 {
-    if (pos <= this->size())
+    if (pos == 0)
+        return this->push_front(key);
+    Node *aux = this->head;
+    for (int i = 0; i < pos - 1 && aux; i++)
     {
-        Node *aux = new Node{key, nullptr};
-        for (int i = 0; i <= pos; i++)
-        {
-            aux = aux->next;
-        }
-
-        Node *novo = new Node{key, aux->next};
-        aux->next = novo;
-        return true;
+        aux = aux->next;
     }
+    if (!aux)
+        return false;
+
+    Node *novo = new Node{key, aux->next};
+    aux->next = novo;
     return true;
 }
 
@@ -138,5 +177,6 @@ bool LinkedList::pop_back()
 
 bool LinkedList::empty()
 {
-    return true;
+    if (this->head = nullptr)
+        return true;
 }

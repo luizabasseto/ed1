@@ -126,3 +126,7 @@ bool ListSeq::addSorted(int elem){
     }
     return false;
 }
+
+int list_get_available(){
+    
+}

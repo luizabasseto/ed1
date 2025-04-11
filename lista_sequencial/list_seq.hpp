@@ -34,6 +34,8 @@ public:
 
     void removeAt(int pos); //feito
 
-    bool addSorted(int elem);
+    bool addSorted(int elem); //feito
+
+    int list_get_available();
 
 };
