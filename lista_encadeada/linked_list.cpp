@@ -40,16 +40,20 @@ bool LinkedList::pop_front()
 bool LinkedList::push_back(int key)
 {
     Node *aux = this->head;
-    int siz = size();
-    for (int i = 0; i < siz - 1; i++)
+    if (!aux) 
     {
-        aux = aux->next;
+        return push_front(key);
     }
-    Node *novo = new Node{key, aux->next};
-    if(!novo) return false;
+    while (aux->next)
+    {
+        aux= aux->next;
+    }
+    
+    Node *novo = new Node{key, nullptr};
+    if (!novo)
+        return false;
 
     aux->next = novo;
-    novo->next = nullptr;
     return true;
 }
 
@@ -75,20 +79,16 @@ bool LinkedList::equals(LinkedList *other)
 int LinkedList::get(int pos)
 {
     int siz = size();
-    if (pos == siz - 1)
-        return 0;
-    Node* aux = this-> head;
-    for (int i = 0; i < siz; i++)
+    if (pos >= siz) 
+        return -1;
+
+    Node *aux = this->head;
+    for (int i = 0; i < pos; i++)
     {
         aux = aux->next;
-        if(i==pos){
-            break;
-        }
     }
 
-    if(!aux) return -1;
-
-    return aux->key;
+    return aux ? aux->key : -1;
 }
 
 void LinkedList::print()
@@ -99,6 +99,7 @@ void LinkedList::print()
         cout << "->" << node->key;
         node = node->next;
     }
+    cout << endl;
 }
 
 int LinkedList::size()
@@ -116,27 +117,35 @@ int LinkedList::size()
 
 Node *LinkedList::find(int key)
 {
-    int siz =size();
-    Node* aux= this->head;
+    int siz = size();
+    Node *aux = this->head;
     for (int i = 0; i < siz; i++)
     {
-        aux=aux->next;
-        if(aux->key == key){
+        if (aux->key == key)
+        {
             return aux;
         }
+        aux = aux->next;
     }
-    
-    if(!aux)return nullptr;
+
+    if (!aux)
+        return nullptr;
 }
 
 void LinkedList::insert_after(int key, Node *pos)
 { // após find
+    if (!pos)
+        return;
     Node *novo = new Node{key, pos->next};
     pos->next = novo;
 }
 
 bool LinkedList::remove_after(Node *pos)
 {
+    Node *aux = pos->next;
+    pos->next = pos->next->next;
+    delete aux;
+
     return true;
 }
 
@@ -157,26 +166,73 @@ bool LinkedList::insert(int key, int pos)
     return true;
 }
 
-bool LinkedList::remove(int pos)
+bool LinkedList::removePos(int pos)
 {
+    Node *aux = this->head;
+    if (pos == 0)
+    {
+        pop_front();
+        return true;
+    }
+
+    int siz = size();
+    for (int i = 0; i < pos-1 && aux; i++)
+    {
+        aux = aux-> next;
+    }
+
+    if (!aux || !aux->next) 
+        return false;
+
+    Node* auxx= aux->next;
+    aux->next=aux->next->next;
+    delete auxx;
+
+
     return true;
 }
 
-bool LinkedList::remove(int key)
+bool LinkedList::removeKey(int key)
 {
-    return true;
+    Node *aux = this->head;
+    if (this->head->key == key)
+    {
+        pop_front();
+        return true;
+    }
+    while (aux)
+    {
+        if (aux->key == key)
+        {
+            Node *auxx = aux->next;
+            aux->next = aux->next->next;
+            delete auxx;
+            return true;
+        }
+        aux= aux->next;
+    }
+
+    return false;
 }
 
 bool LinkedList::pop_back()
 {
     if (empty)
         return false;
+    Node *aux = this->head;
+    while (aux)
+    {
+        aux = aux->next;
+    }
+
+    delete aux;
+    aux->next = nullptr;
 
     return true;
 }
 
 bool LinkedList::empty()
 {
-    if (this->head = nullptr)
+    if (this->head == nullptr)
         return true;
 }
