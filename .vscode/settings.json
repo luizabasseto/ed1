@@ -6,7 +6,8 @@
         "new": "cpp",
         "xutility": "cpp",
         "xlocinfo": "cpp",
-        "xstring": "cpp"
+        "xstring": "cpp",
+        "ostream": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

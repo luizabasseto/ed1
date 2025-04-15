@@ -44,5 +44,9 @@ public:
 
     Node* getPos(int pos); // feito
 
-    void print_last();
+    void print_last(); //feito
+
+    bool is_sorted(); //feito
+
+    bool push_backVet(int n, int vec*);
 };

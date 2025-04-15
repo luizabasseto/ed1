@@ -263,9 +263,10 @@ bool LinkedList::insert_sorted(int key)
 
 Node *LinkedList::getPos(int pos)
 {
-    if (pos < 0) return nullptr;
+    if (pos < 0)
+        return nullptr;
 
-    Node* aux = this->head;
+    Node *aux = this->head;
     for (int i = 0; i < pos; i++)
     {
         aux = aux->next;
@@ -274,7 +275,40 @@ Node *LinkedList::getPos(int pos)
     return aux;
 }
 
-void LinkedList::print_last(){
-    Node* aux =this->head;
-    
+void LinkedList::print_last()
+{
+    Node *aux = this->head;
+    while (aux->next)
+    {
+        aux = aux->next
+    }
+
+    cout << "Último: " << aux->key << ".";
+    cout << endl;
 }
+
+bool LinkedList::is_sorted()
+{
+    Node *aux = this->head;
+    while (aux)
+    {
+        if (aux->key > aux->next->key)
+        {
+            return false;
+        }
+        aux=aux->next;
+    }
+
+   return true;
+}
+
+bool LinkedList::push_backVet(int n, int* vec){
+    for (int i = 0; i < n; i++)
+    {
+       push_back(vec[i]);
+    }
+    
+    return true;
+}
+
+
