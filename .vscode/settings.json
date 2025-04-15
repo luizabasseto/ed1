@@ -3,6 +3,10 @@
     "files.associations": {
         "deque": "cpp",
         "list": "cpp",
-        "new": "cpp"
-    }
+        "new": "cpp",
+        "xutility": "cpp",
+        "xlocinfo": "cpp",
+        "xstring": "cpp"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

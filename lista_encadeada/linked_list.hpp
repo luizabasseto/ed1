@@ -38,7 +38,11 @@ public:
     bool removePos(int pos); //feito
     bool removeKey(int key); //feito
     
-    bool insert_sorted(int key);
+    bool insert_sorted(int key); //feito
 
     bool equals(LinkedList* other); //feito
+
+    Node* getPos(int pos); // feito
+
+    void print_last();
 };

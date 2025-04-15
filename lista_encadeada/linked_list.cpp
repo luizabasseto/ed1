@@ -40,15 +40,15 @@ bool LinkedList::pop_front()
 bool LinkedList::push_back(int key)
 {
     Node *aux = this->head;
-    if (!aux) 
+    if (!aux)
     {
         return push_front(key);
     }
     while (aux->next)
     {
-        aux= aux->next;
+        aux = aux->next;
     }
-    
+
     Node *novo = new Node{key, nullptr};
     if (!novo)
         return false;
@@ -79,7 +79,7 @@ bool LinkedList::equals(LinkedList *other)
 int LinkedList::get(int pos)
 {
     int siz = size();
-    if (pos >= siz) 
+    if (pos >= siz)
         return -1;
 
     Node *aux = this->head;
@@ -176,18 +176,17 @@ bool LinkedList::removePos(int pos)
     }
 
     int siz = size();
-    for (int i = 0; i < pos-1 && aux; i++)
+    for (int i = 0; i < pos - 1 && aux; i++)
     {
-        aux = aux-> next;
+        aux = aux->next;
     }
 
-    if (!aux || !aux->next) 
+    if (!aux || !aux->next)
         return false;
 
-    Node* auxx= aux->next;
-    aux->next=aux->next->next;
+    Node *auxx = aux->next;
+    aux->next = aux->next->next;
     delete auxx;
-
 
     return true;
 }
@@ -209,7 +208,7 @@ bool LinkedList::removeKey(int key)
             delete auxx;
             return true;
         }
-        aux= aux->next;
+        aux = aux->next;
     }
 
     return false;
@@ -217,17 +216,23 @@ bool LinkedList::removeKey(int key)
 
 bool LinkedList::pop_back()
 {
-    if (empty)
+    if (!this->head)
         return false;
-    Node *aux = this->head;
-    while (aux)
+    if (!this->head->next)
     {
-        aux = aux->next;
+        delete this->head;
+        this->head = nullptr;
+        return true;
     }
-
-    delete aux;
-    aux->next = nullptr;
-
+    Node *prev = nullptr;
+    Node *curr = this->head;
+    while (curr->next)
+    {
+        prev = curr;
+        curr = curr->next;
+    }
+    delete curr;
+    prev->next = nullptr;
     return true;
 }
 
@@ -235,4 +240,41 @@ bool LinkedList::empty()
 {
     if (this->head == nullptr)
         return true;
+}
+
+bool LinkedList::insert_sorted(int key)
+{
+    if (empty())
+        push_front(key);
+    Node *aux = this->head;
+    int n = 0;
+    while (aux)
+    {
+        if (aux->key > key)
+        {
+            insert(key, n - 1);
+            return true;
+        }
+        aux = aux->next;
+        n++;
+    }
+    return false;
+}
+
+Node *LinkedList::getPos(int pos)
+{
+    if (pos < 0) return nullptr;
+
+    Node* aux = this->head;
+    for (int i = 0; i < pos; i++)
+    {
+        aux = aux->next;
+    }
+
+    return aux;
+}
+
+void LinkedList::print_last(){
+    Node* aux =this->head;
+    
 }
