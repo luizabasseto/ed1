@@ -48,5 +48,11 @@ public:
 
     bool is_sorted(); //feito
 
-    bool push_backVet(int n, int vec*);
+    bool push_backVet(int n, int* vec); //feito
+
+    LinkedList* deep_copy();//feito
+
+    LinkedList* concat(LinkedList* list2); //feito
+
+    LinkedList* merge(LinkedList* list2); //feito
 };

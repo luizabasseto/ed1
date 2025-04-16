@@ -280,7 +280,7 @@ void LinkedList::print_last()
     Node *aux = this->head;
     while (aux->next)
     {
-        aux = aux->next
+        aux = aux->next;
     }
 
     cout << "Último: " << aux->key << ".";
@@ -296,19 +296,141 @@ bool LinkedList::is_sorted()
         {
             return false;
         }
-        aux=aux->next;
+        aux = aux->next;
     }
 
-   return true;
-}
-
-bool LinkedList::push_backVet(int n, int* vec){
-    for (int i = 0; i < n; i++)
-    {
-       push_back(vec[i]);
-    }
-    
     return true;
 }
 
+bool LinkedList::push_backVet(int n, int* vec)
+{
+    for (int i = 0; i < n; i++)
+    {
+        push_back(vec[i]);
+    }
 
+    return true;
+}
+
+LinkedList* LinkedList::deep_copy()
+{
+    LinkedList *newList = new LinkedList();
+
+    if (this->head == nullptr)
+    {
+        return newList;
+    }
+
+    Node *aux = this->head;
+    newList->head = new Node{aux->key, nullptr};
+    Node *auxNewList = newList->head;
+    aux = aux->next;
+
+    while (aux != nullptr)
+    {
+        auxNewList->next = new Node{aux->key, nullptr};
+        auxNewList = auxNewList->next;
+        aux = aux->next;
+    }
+
+    return newList;
+}
+
+LinkedList* LinkedList::concat(LinkedList *list2)
+{
+    LinkedList *concatList = new LinkedList();
+
+    Node *auxList2 = list2->head;
+    Node *aux = this->head;
+
+    if (this->head == nullptr && list2->head == nullptr)
+    {
+        return concatList;
+    }
+
+    if (aux != nullptr)
+    {
+        concatList->head = new Node{aux->key, nullptr};
+        aux = aux->next;
+    }
+    else
+    {
+        concatList->head = new Node{auxList2->key, nullptr};
+        auxList2 = auxList2->next;
+    }
+
+    Node *auxNewList = concatList->head;
+
+    while (aux != nullptr)
+    {
+        auxNewList->next = new Node{aux->key, nullptr};
+        auxNewList = auxNewList->next;
+        aux = aux->next;
+    }
+
+    while (auxList2 != nullptr)
+    {
+        auxNewList->next = new Node{auxList2->key, nullptr};
+        auxNewList = auxNewList->next;
+        auxList2 = auxList2->next;
+    }
+
+    return concatList;
+}
+
+LinkedList* LinkedList::merge(LinkedList *list2)
+{
+    LinkedList *mergeList = new LinkedList();
+
+    Node *auxList2 = list2->head;
+    Node *aux = this->head;
+
+    if (this->head == nullptr && list2->head == nullptr)
+    {
+        return mergeList;
+    }
+
+    Node *auxMerge = nullptr;
+
+    if (aux != nullptr && (auxList2 == nullptr || aux->key <= auxList2->key))
+    {
+        mergeList->head = new Node{aux->key, nullptr};
+        aux = aux->next;
+    }
+    else if (auxList2 != nullptr)
+    {
+        mergeList->head = new Node{auxList2->key, nullptr};
+        auxList2 = auxList2->next;
+    }
+
+    auxMerge = mergeList->head;
+
+    while (aux != nullptr && auxList2 != nullptr)
+    {
+        if (aux->key <= auxList2->key)
+        {
+            auxMerge->next = new Node{aux->key, nullptr};
+            aux = aux->next;
+        }
+        else
+        {
+            auxMerge->next = new Node{auxList2->key, nullptr};
+            auxList2 = auxList2->next;
+        }
+        auxMerge = auxMerge->next;
+    }
+
+    while (aux != nullptr) {
+        auxMerge->next = new Node{aux->key, nullptr};
+        auxMerge = auxMerge->next;
+        aux = aux->next;
+    }
+
+    while (auxList2 != nullptr) {
+        auxMerge->next = new Node{auxList2->key, nullptr};
+        auxMerge = auxMerge->next;
+        auxList2 = auxList2->next;
+    }
+
+    return mergeList;
+}
