@@ -34,7 +34,7 @@ public:
 
     void removeAt(int pos); //feito
 
-    bool addSorted(int elem); //feito
+    bool addSorted(int elem); //precisa conferir
 
     int list_get_available(); //feito
 
@@ -56,7 +56,7 @@ public:
 
     ListSeq* list_copy(); //feito
 
-    int list_concat(ListSeq* list2); //feito
+    int list_concat(ListSeq* list2); //conferir
 
 };
 
