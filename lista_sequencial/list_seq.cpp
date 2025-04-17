@@ -8,6 +8,7 @@ ListSeq ::ListSeq(int _capacity)
 {
     data = new int[_capacity]; // new aloca na heap sempre (pilha)
     capacity = _capacity;
+    size = 0;
 };
 
 bool ListSeq ::add(int elem)
@@ -97,36 +98,101 @@ int ListSeq::find(int elem)
 
 int ListSeq::get(int pos)
 {
-    if (pos >= 0 && pos < size) return data[pos];
-    
+    if (pos >= 0 && pos < size)
+        return data[pos];
+
     return -1;
 }
 
 void ListSeq::insert(int elem, int pos)
 {
-    if (isFull()) resize();
-    for (int i = size; i> pos; i--)
+    if (isFull())
+        resize();
+    for (int i = size; i > pos; i--)
     {
         data[i] = data[i - 1];
     }
-    data[pos]=elem;
+    data[pos] = elem;
     size++;
 }
 
-bool ListSeq::addSorted(int elem){
-    if (isFull()) resize();
+bool ListSeq::addSorted(int elem)
+{
+    if (isFull())
+        resize();
     for (int i = 0; i < size; i++)
     {
-        if (data[i]>elem)
+        if (data[i] > elem)
         {
-            insert(elem,i-1);
+            insert(elem, i - 1);
             return true;
         }
-        
     }
     return false;
 }
 
-int list_get_available(){
-    
+int ListSeq::list_get_available()
+{
+    if (isFull())
+        return 0;
+    if (isEmpty())
+        return capacity;
+
+    return capacity - size;
 }
+
+void ListSeq::list_clear()
+{
+    while (!isEmpty())
+    {
+        removeAt(0);
+    }
+}
+
+void ListSeq::list_remove_last(int n)
+{
+    if (n <= size-1)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            remove();
+        }
+    }
+}
+
+void ListSeq::list_print_reverse(){
+    for (int i = size-1; i >= 0; i--)
+    {
+        cout << data[i] << " ";
+    }
+    cout << endl;
+}
+
+void ListSeq::list_add(int n, int* vet){    
+    for (int i = 0; i < n; i++)
+    {
+        if (isFull()) break;     
+        add(vet[i]);
+    }   
+
+}
+
+bool ListSeq::list_is_sorted(){
+    for (int i = 0; i < size; i++)
+    {
+       if (data[i]>data[i+1]) return false;
+    }
+    return true;    
+}
+
+void ListSeq::list_reverse(){
+    ListSeq aux (capacity);
+    for (int i = size - 1; i >= 0; i--) {
+        aux.add(data[i]);
+    }
+    for (int i = 0; i < size; i++) {
+        data[i] = aux.data[i];
+    }
+    aux.destroy();  
+}
+

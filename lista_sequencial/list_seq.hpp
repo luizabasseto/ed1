@@ -36,6 +36,22 @@ public:
 
     bool addSorted(int elem); //feito
 
-    int list_get_available();
+    int list_get_available(); //feito
+
+    void list_clear(); //feito
+
+    void list_remove_last(int n); //feito
+
+    void list_print_reverse(); //feito
+
+    void list_add(int n, int* vet); //feito
+
+    bool list_is_sorted(); //feito
+
+    void list_reverse(); //feito
+
+    int list_equal(ListSeq* outra);
+
 
 };
+
