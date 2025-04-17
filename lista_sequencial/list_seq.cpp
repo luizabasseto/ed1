@@ -151,7 +151,7 @@ void ListSeq::list_clear()
 
 void ListSeq::list_remove_last(int n)
 {
-    if (n <= size-1)
+    if (n <= size - 1)
     {
         for (int i = 0; i < n; i++)
         {
@@ -160,87 +160,102 @@ void ListSeq::list_remove_last(int n)
     }
 }
 
-void ListSeq::list_print_reverse(){
-    for (int i = size-1; i >= 0; i--)
+void ListSeq::list_print_reverse()
+{
+    for (int i = size - 1; i >= 0; i--)
     {
         cout << data[i] << " ";
     }
     cout << endl;
 }
 
-void ListSeq::list_add(int n, int* vet){    
+void ListSeq::list_add(int n, int *vet)
+{
     for (int i = 0; i < n; i++)
     {
-        if (isFull()) break;     
+        if (isFull())
+            break;
         add(vet[i]);
-    }   
-
+    }
 }
 
-bool ListSeq::list_is_sorted(){
+bool ListSeq::list_is_sorted()
+{
     for (int i = 0; i < size; i++)
     {
-       if (data[i]>data[i+1]) return false;
-    }
-    return true;    
-}
-
-void ListSeq::list_reverse(){
-    ListSeq aux (capacity);
-    for (int i = size - 1; i >= 0; i--) {
-        aux.add(data[i]);
-    }
-    for (int i = 0; i < size; i++) {
-        data[i] = aux.data[i];
-    }
-    aux.destroy();  
-}
-
-bool ListSeq::list_equal(ListSeq* outra){
-
-    if (outra->capacity!=capacity) return false;
-    if (outra->size!=size) return false;
-    for (int i = 0; i < size; i++)
-    {
-        if (outra->data[i]!=data[i])
-        {
+        if (data[i] > data[i + 1])
             return false;
-        }
-        
-    }    
+    }
     return true;
 }
 
- ListSeq* ListSeq::list_from_vector(int n, int* vet){
-    ListSeq newList (n*2);
+void ListSeq::list_reverse()
+{
+    ListSeq *aux = new ListSeq(capacity);
+    for (int i = size - 1; i >= 0; i--)
+    {
+        aux->add(data[i]);
+    }
+    for (int i = 0; i < size; i++)
+    {
+        data[i] = aux->data[i];
+    }
+    aux->destroy();
+}
+
+bool ListSeq::list_equal(ListSeq *outra)
+{
+
+    if (outra->capacity != capacity)
+        return false;
+    if (outra->size != size)
+        return false;
+    for (int i = 0; i < size; i++)
+    {
+        if (outra->data[i] != data[i])
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+ListSeq* ListSeq::list_from_vector(int n, int *vet)
+{
+    ListSeq* newList = new ListSeq(n * 2);
+
     for (int i = 0; i < n; i++)
     {
-        newList.add(vet[i]);
+        newList->add(vet[i]);
     }
 
     return newList;
- }
+}
 
- ListSeq* ListSeq::list_copy(){
-    ListSeq newList (capacity);
+ListSeq* ListSeq::list_copy()
+{
+    ListSeq* newList = new ListSeq (capacity);
     for (int i = 0; i < size; i++)
     {
-        newList.add(data[i]);
+        newList->add(data[i]);
     }
-    
-    return newList;
- }
 
- int ListSeq::list_concat(ListSeq* list2){
-    int n=0;
-    if (isFull()) return n;
+    return newList;
+}
+
+int ListSeq::list_concat(ListSeq *list2)
+{
+    int n = 0;
+    if (isFull())
+        return n;
 
     for (int i = 0; i < size; i++)
     {
-        if (isFull()) break;
-        data[size+i] = list2->data[i];
+        if (isFull())
+            break;
+        data[size + i] = list2->data[i];
         n++;
     }
-    
+
     return n;
- }
+}
