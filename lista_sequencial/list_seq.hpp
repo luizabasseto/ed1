@@ -50,8 +50,14 @@ public:
 
     void list_reverse(); //feito
 
-    int list_equal(ListSeq* outra);
+    bool list_equal(ListSeq* outra); //feito
 
+    ListSeq* list_from_vector(int n, int* vet); //feito
+
+    ListSeq* list_copy(); //feito
+
+    int list_concat(ListSeq* list2); //feito
+ 
 
 };
 

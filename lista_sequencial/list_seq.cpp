@@ -196,3 +196,51 @@ void ListSeq::list_reverse(){
     aux.destroy();  
 }
 
+bool ListSeq::list_equal(ListSeq* outra){
+
+    if (outra->capacity!=capacity) return false;
+    if (outra->size!=size) return false;
+    for (int i = 0; i < size; i++)
+    {
+        if (outra->data[i]!=data[i])
+        {
+            return false;
+        }
+        
+    }    
+    return true;
+}
+
+ ListSeq* ListSeq::list_from_vector(int n, int* vet){
+    ListSeq newList (n*2);
+    for (int i = 0; i < n; i++)
+    {
+        newList.add(vet[i]);
+    }
+
+    return newList;
+ }
+
+ ListSeq* ListSeq::list_copy(){
+    ListSeq newList (capacity);
+    for (int i = 0; i < size; i++)
+    {
+        newList.add(data[i]);
+    }
+    
+    return newList;
+ }
+
+ int ListSeq::list_concat(ListSeq* list2){
+    int n=0;
+    if (isFull()) return n;
+
+    for (int i = 0; i < size; i++)
+    {
+        if (isFull()) break;
+        data[size+i] = list2->data[i];
+        n++;
+    }
+    
+    return n;
+ }
