@@ -124,7 +124,7 @@ bool ListSeq::addSorted(int elem)
     {
         if (data[i] > elem)
         {
-            insert(elem, i - 1);
+            insert(elem, i);
             return true;
         }
     }
@@ -249,11 +249,11 @@ int ListSeq::list_concat(ListSeq *list2)
     if (isFull())
         return n;
 
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < list2->size; i++)
     {
         if (isFull())
             break;
-        data[size + i] = list2->data[i];
+        data[size++] = list2->data[i];
         n++;
     }
 
