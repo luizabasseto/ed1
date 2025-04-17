@@ -115,12 +115,15 @@ int LinkedList::size()
     return n;
 }
 
-Node* LinkedList::find(int key){
-     if (this->head == nullptr) {
-        return nullptr;  
+Node *LinkedList::find(int key)
+{
+    if (this->head == nullptr)
+    {
+        return nullptr;
     }
     Node *aux = this->head;
-    while(aux){
+    while (aux)
+    {
         if (aux->key == key)
         {
             return aux;
@@ -130,7 +133,8 @@ Node* LinkedList::find(int key){
     return nullptr;
 }
 
-void LinkedList::insert_after(int key, Node *pos){ // após find
+void LinkedList::insert_after(int key, Node *pos)
+{ // após find
     if (!pos)
         return;
     Node *novo = new Node{key, pos->next};
@@ -241,22 +245,28 @@ bool LinkedList::empty()
     return false;
 }
 
-bool LinkedList::insert_sorted(int key){
+bool LinkedList::insert_sorted(int key)
+{
     if (empty())
-        push_front(key);
-    Node *aux = this->head;
-    int n = 0;
-    while (aux)
     {
-        if (aux->key > key)
-        {
-            insert(key, n - 1);
+        push_front(key);
+        return true;
+    }
+
+    Node* aux = this->head;
+    int n = 0;
+
+    while (aux) {
+        if (aux->key > key) {
+            insert(key, n);
             return true;
         }
         aux = aux->next;
         n++;
     }
-    return false;
+
+    push_back(key);
+    return true;
 }
 
 Node *LinkedList::getPos(int pos)
@@ -285,13 +295,11 @@ void LinkedList::print_last()
     cout << endl;
 }
 
-bool LinkedList::is_sorted()
-{
-    Node *aux = this->head;
-    while (aux)
-    {
-        if (aux->key > aux->next->key)
-        {
+bool LinkedList::is_sorted() {
+    Node* aux = this->head;
+
+    while (aux && aux->next) {
+        if (aux->key > aux->next->key) {
             return false;
         }
         aux = aux->next;
@@ -300,7 +308,7 @@ bool LinkedList::is_sorted()
     return true;
 }
 
-bool LinkedList::push_backVet(int n, int* vec)
+bool LinkedList::push_backVet(int n, int *vec)
 {
     for (int i = 0; i < n; i++)
     {
@@ -310,7 +318,7 @@ bool LinkedList::push_backVet(int n, int* vec)
     return true;
 }
 
-LinkedList* LinkedList::deep_copy()
+LinkedList *LinkedList::deep_copy()
 {
     LinkedList *newList = new LinkedList();
 
@@ -334,7 +342,7 @@ LinkedList* LinkedList::deep_copy()
     return newList;
 }
 
-LinkedList* LinkedList::concat(LinkedList *list2)
+LinkedList *LinkedList::concat(LinkedList *list2)
 {
     LinkedList *concatList = new LinkedList();
 
@@ -376,7 +384,7 @@ LinkedList* LinkedList::concat(LinkedList *list2)
     return concatList;
 }
 
-LinkedList* LinkedList::merge(LinkedList *list2)
+LinkedList *LinkedList::merge(LinkedList *list2)
 {
     LinkedList *mergeList = new LinkedList();
 
@@ -418,13 +426,15 @@ LinkedList* LinkedList::merge(LinkedList *list2)
         auxMerge = auxMerge->next;
     }
 
-    while (aux != nullptr) {
+    while (aux != nullptr)
+    {
         auxMerge->next = new Node{aux->key, nullptr};
         auxMerge = auxMerge->next;
         aux = aux->next;
     }
 
-    while (auxList2 != nullptr) {
+    while (auxList2 != nullptr)
+    {
         auxMerge->next = new Node{auxList2->key, nullptr};
         auxMerge = auxMerge->next;
         auxList2 = auxList2->next;
