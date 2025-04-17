@@ -57,7 +57,6 @@ public:
     ListSeq* list_copy(); //feito
 
     int list_concat(ListSeq* list2); //feito
- 
 
 };
 
