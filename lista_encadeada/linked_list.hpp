@@ -38,7 +38,7 @@ public:
     bool removePos(int pos); //feito
     bool removeKey(int key); //feito
     
-    bool insert_sorted(int key); //feito
+    bool insert_sorted(int key); //com defeito
 
     bool equals(LinkedList* other); //feito
 
@@ -54,5 +54,5 @@ public:
 
     LinkedList* concat(LinkedList* list2); //feito
 
-    LinkedList* merge(LinkedList* list2); //feito
+    LinkedList* merge(LinkedList* list2); //com defeito
 };

@@ -115,25 +115,22 @@ int LinkedList::size()
     return n;
 }
 
-Node *LinkedList::find(int key)
-{
-    int siz = size();
+Node* LinkedList::find(int key){
+     if (this->head == nullptr) {
+        return nullptr;  
+    }
     Node *aux = this->head;
-    for (int i = 0; i < siz; i++)
-    {
+    while(aux){
         if (aux->key == key)
         {
             return aux;
         }
         aux = aux->next;
     }
-
-    if (!aux)
-        return nullptr;
+    return nullptr;
 }
 
-void LinkedList::insert_after(int key, Node *pos)
-{ // após find
+void LinkedList::insert_after(int key, Node *pos){ // após find
     if (!pos)
         return;
     Node *novo = new Node{key, pos->next};
@@ -240,10 +237,11 @@ bool LinkedList::empty()
 {
     if (this->head == nullptr)
         return true;
+
+    return false;
 }
 
-bool LinkedList::insert_sorted(int key)
-{
+bool LinkedList::insert_sorted(int key){
     if (empty())
         push_front(key);
     Node *aux = this->head;
