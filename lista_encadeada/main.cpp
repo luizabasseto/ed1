@@ -119,6 +119,8 @@ int main() {
 
     // Testando merge
     cout << "Testando merge:" << endl;
+    list1.sorted();
+    list2.sorted();
     LinkedList* listMerge = list1.merge(&list2);
     listMerge->print();  // Esperado: ->5->10->15->1->2->3->100->200
 

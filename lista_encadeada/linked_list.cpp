@@ -384,6 +384,29 @@ LinkedList *LinkedList::concat(LinkedList *list2)
     return concatList;
 }
 
+bool LinkedList::sorted(){
+    LinkedList* ordered = new LinkedList();
+    Node* current = this->head;
+
+    while (current) {
+        ordered->insert_sorted(current->key);
+        current = current->next;
+    }
+
+    while (this->head) {
+        this->pop_front();
+    }
+
+    current = ordered->head;
+    while (current) {
+        this->push_back(current->key);
+        current = current->next;
+    }
+
+    delete ordered;
+
+}
+
 LinkedList *LinkedList::merge(LinkedList *list2)
 {
     LinkedList *mergeList = new LinkedList();
