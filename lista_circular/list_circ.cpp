@@ -10,15 +10,16 @@ List::List()
     this->tail = nullptr;
 }
 
-List::~List()
-{
-    Node *aux = this->head;
+List::~List() {
+    Node* aux = this->head;
+
+    
 }
 
 bool List::push_front(int key)
 {
-    Node *novo = new Node{key, nullptr, nullptr};
-    if (!novo)
+    Node *novo = new Node{key, nullptr,nullptr};
+    if (!node)
         return false;
 
     novo->next = this->head;
@@ -26,17 +27,15 @@ bool List::push_front(int key)
     if (novo->next)
     {
         novo->next->prev = novo;
-    }
-    else
-    {
-        this->tail = novo;
+    } else{
+        this->tail = node;
     }
     return true;
 }
 
 bool List::pop_front()
 {
-    if (this->head)
+     if (this->head)
     {
         Node *aux = this->head;
         this->head = aux->next;
@@ -51,23 +50,26 @@ bool List::pop_front()
     {
         return false;
     }
+
 }
 
 bool List::push_back(int key)
 {
-    Node *aux = this->tail;
+     Node *aux = this->head;
     if (!aux)
     {
         return push_front(key);
     }
+    while (aux->next)
+    {
+        aux = aux->next;
+    }
 
-    Node* novo = new Node{key, this->tail, nullptr};
+    Node *novo = new Node{key, nullptr};
     if (!novo)
         return false;
 
-    this->tail->next = novo;
-    this->tail = novo;
-
+    aux->next = novo;
 
     return true;
 }
@@ -114,17 +116,23 @@ bool List::removeKey(int key)
 
 bool List::pop_back()
 {
-    if (!this->tail)
+    if (!this->head)
         return false;
-    Node* aux = this->tail;
-    this->tail = this->tail->prev;
-
-    if (this->tail)
-        this->tail->next = nullptr;
-    else
+    if (!this->head->next)
+    {
+        delete this->head;
         this->head = nullptr;
-
-    delete aux;
+        return true;
+    }
+    Node *prev = nullptr;
+    Node *curr = this->head;
+    while (curr->next)
+    {
+        prev = curr;
+        curr = curr->next;
+    }
+    delete curr;
+    prev->next = nullptr;
     return true;
 }
 
@@ -132,7 +140,6 @@ bool List::empty()
 {
     if (this->head == nullptr)
         return true;
-    return false;
 }
 
 bool List::insert_sorted(int key)

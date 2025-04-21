@@ -19,15 +19,15 @@ public:
     List();
     ~List();
     
-    bool push_front(int key); //feito
-    bool pop_front(); //feito
+    bool push_front(int key); 
+    bool pop_front(); 
     
     void print(); 
     int size(); 
-    bool empty(); //feito
+    bool empty(); 
     
-    bool push_back(int key); //feito
-    bool pop_back(); //feito
+    bool push_back(int key); 
+    bool pop_back(); 
     
     int get(int pos); 
     Node* find(int key); 
