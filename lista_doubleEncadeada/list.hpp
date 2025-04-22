@@ -29,7 +29,7 @@ public:
     bool push_back(int key); //feito
     bool pop_back(); //feito
     
-    int get(int pos); 
+    int get(int pos); //feito
     Node* find(int key); 
     
     void insert_after(int key, Node* pos); 
@@ -42,9 +42,7 @@ public:
     
     bool insert_sorted(int key); 
 
-    bool equals(LinkedList* other); 
-
-    Node* getPos(int pos);
+    bool equals(LinkedList* other); //feito
 
     void print_last(); 
 
