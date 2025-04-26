@@ -74,10 +74,39 @@ bool List::push_back(int key)
 
 bool List::equals(List *other)
 {
+    Node* auxOther = other->this->head;
+    Node* aux = this->head;
+    while (aux && auxOther)
+    {
+        if(aux->key!=auxOther->key){
+            return false;
+        }
+        aux=aux->next;
+        auxOther=auxOther->next;
+    }
+
+    return true;
+    
 }
 
 int List::get(int pos)
 {
+    if (pos==0)
+    {
+        return this->head->key;
+    } 
+    Node* aux = this->head;
+    int n=0;
+    while (aux)
+    {
+        if(n==pos){
+            return aux->key;
+        }
+
+        aux=aux->next;
+        n++;
+    }
+    return -1;
 }
 
 void List::print()
