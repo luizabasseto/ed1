@@ -5,8 +5,8 @@
 class Node {
 public:
     int key;
-    Node* next;
     Node* prev;
+    Node* next;
 };
 
 
@@ -30,7 +30,7 @@ public:
     bool pop_back(); //feito
     
     int get(int pos); //feito
-    int get(int pos); //feito
+
     Node* find(int key); //feito
     
     void insert_after(int key, Node* pos); //feito
@@ -43,7 +43,7 @@ public:
     
     bool insert_sorted(int key); 
 
-    bool equals(LinkedList* other); //feito
+    bool equals(List* other); //feito
 
     Node* getPos(int pos);
 
@@ -51,5 +51,5 @@ public:
 
     bool is_sorted(); 
 
-    bool push_backVet(int n, int vec*);
+    bool push_backVet(int n, int* vec);
 };

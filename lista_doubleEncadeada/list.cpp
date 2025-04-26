@@ -71,27 +71,13 @@ bool List::push_back(int key)
     return true;
 }
 
-bool List::equals(List *other) // precisa terminar
+bool List::equals(List *other)
 {
-    Node *auxOther = other->this->head;
+    Node *auxOther = other->head;
     Node *aux = this->head;
     while (aux && auxOther)
     {
         if (aux->key != auxOther->key)
-        {
-            return false;
-        }
-        aux = aux->next;
-        auxOther = auxOther->next;
-    }
-
-    return true;
-
-    Node *aux = this->head;
-    Node *auxOther = other->this->head;
-    while (aux)
-    {
-        if (auxOther->key != aux->key)
         {
             return false;
         }
@@ -111,24 +97,6 @@ int List::get(int pos)
         {
             return aux->key;
         }
-        aux = aux->next;
-        n++;
-    }
-    return -1;
-
-    if (pos == 0)
-    {
-        return this->head->key;
-    }
-    Node *aux = this->head;
-    int n = 0;
-    while (aux)
-    {
-        if (n == pos)
-        {
-            return aux->key;
-        }
-
         aux = aux->next;
         n++;
     }
@@ -196,16 +164,19 @@ bool List::remove_after(Node *pos)
     {
         if (aux->key == pos->key)
         {
-            removePos(n + 1);
-            break;
+            return removePos(n + 1);
         }
         n++;
         aux = aux->next;
     }
+
+    return false;
 }
 
 bool List::insert(int key, int pos)
 {
+    Node *novo = new Node();
+
     if (pos == 0)
     {
         push_front(key);
@@ -217,51 +188,105 @@ bool List::insert(int key, int pos)
     {
         if (n == pos)
         {
-            Node *novo = new Node(key, aux->prev, aux->next);
             break;
         }
         n++;
         aux = aux->next;
     }
-    if (!novo)
-        return false;
-
+    novo->key = key;
+    novo->prev = aux->prev;
+    novo->next = aux;
+    if (aux->prev)
+        aux->prev->next = novo;
+    aux->prev = novo;
+    if (aux->next)
+        aux->next->prev = novo;
     return true;
 }
 
 bool List::removePos(int pos)
 {
+    if (!this->head)
+        return false; // Lista vazia
+
     Node *aux = this->head;
-    if (!aux)
-        return false;
-    for (int i = 0; i <= pos; i++)
+
+    // Percorre até o nó desejado
+    for (int i = 0; aux && i < pos; i++)
     {
         aux = aux->next;
     }
 
-    aux->prev->next = aux->next;
-    aux->next->prev = aux->prev;
-    delete aux;
+    if (!aux)
+        return false; // Caso a posição seja inválida
+
+    // Se o nó a ser removido for o único nó
+    if (aux->prev == nullptr && aux->next == nullptr)
+    {
+        this->head = nullptr; // A lista fica vazia
+    }
+    // Se o nó a ser removido for o primeiro
+    else if (aux->prev == nullptr)
+    {
+        this->head = aux->next;
+        aux->next->prev = nullptr;
+    }
+    // Se o nó a ser removido for o último
+    else if (aux->next == nullptr)
+    {
+        aux->prev->next = nullptr;
+    }
+    // Se o nó estiver no meio
+    else
+    {
+        aux->prev->next = aux->next;
+        aux->next->prev = aux->prev;
+    }
+
+    delete aux; // Libera a memória do nó removido
     return true;
 }
 
 bool List::removeKey(int key)
 {
+    if (!this->head)
+        return false; // Lista vazia
+
     Node *aux = this->head;
-    if (!aux)
-        return false;
-    while (aux)
+
+    // Percorre a lista até encontrar o nó com a chave
+    while (aux && aux->key != key)
     {
-        if (aux->key == key)
-        {
-            break;
-        }
         aux = aux->next;
     }
 
-    aux->prev->next = aux->next;
-    aux->next->prev = aux->prev;
-    delete aux;
+    if (!aux)
+        return false; // Se não encontrar a chave
+
+    // Se o nó a ser removido for o único nó
+    if (aux->prev == nullptr && aux->next == nullptr)
+    {
+        this->head = nullptr; // A lista fica vazia
+    }
+    // Se o nó a ser removido for o primeiro
+    else if (aux->prev == nullptr)
+    {
+        this->head = aux->next;
+        aux->next->prev = nullptr;
+    }
+    // Se o nó a ser removido for o último
+    else if (aux->next == nullptr)
+    {
+        aux->prev->next = nullptr;
+    }
+    // Se o nó estiver no meio
+    else
+    {
+        aux->prev->next = aux->next;
+        aux->next->prev = aux->prev;
+    }
+
+    delete aux; // Libera a memória do nó removido
     return true;
 }
 
@@ -291,14 +316,14 @@ bool List::empty()
 bool List::insert_sorted(int key)
 {
     if (empty())
-        push_front(key);
+        return push_front(key);
     Node *aux = this->head;
     int n = 0;
     while (aux)
     {
-        if (aux->key > key)
+        if (aux->key < key)
         {
-            insert(key, n - 1);
+            insert(key, n);
             return true;
         }
         aux = aux->next;
@@ -326,7 +351,7 @@ void List::print_last()
     Node *aux = this->head;
     while (aux->next)
     {
-        aux = aux->next
+        aux = aux->next;
     }
 
     cout << "Último: " << aux->key << ".";
