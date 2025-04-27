@@ -175,7 +175,7 @@ bool CircleList::remove_after(Node *pos)
   pos->next = aux->next;
   if (pos == this->tail)
   {
-    this->tail = this->head;
+    this->tail->next = this->head->next;
   }
   delete aux;
   return true;
