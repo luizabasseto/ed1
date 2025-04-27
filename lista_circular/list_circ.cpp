@@ -12,29 +12,35 @@ CircleList::CircleList()
 
 CircleList::~CircleList()
 {
-  Node *current = this->head;
-  while (current)
+  if (!head)
+    return;
+
+  Node *curr = head;
+  do
   {
-    Node *next = current->next;
-    delete current;
-    current = next;
-  }
-  this->head = nullptr;
-  this->tail = nullptr;
+    Node *next = curr->next;
+    delete curr;
+    curr = next;
+  } while (curr != head);
+
+  head = nullptr;
+  tail = nullptr;
 }
 
 bool CircleList::push_front(int key)
 {
-  Node *novo = new Node{key, this->head};
-  if (!this->head)
+  Node *novo = new Node{key, nullptr};
+
+  if (!this->head) // lista vazia
   {
-    this->head = novo;
-    this->tail = novo;
+    this->head = this->tail = novo;
+    novo->next = novo;
   }
   else
   {
+    novo->next = this->head;
     this->tail->next = novo;
-    this->tail = novo;
+    this->head = novo;
   }
   return true;
 }
@@ -61,7 +67,7 @@ bool CircleList::pop_front()
 
 bool CircleList::push_back(int key)
 {
-  Node *novo = new Node{key, this->tail};
+  Node *novo = new Node{key, this->head};
   this->tail = novo;
   this->tail->next = this->head;
 
@@ -258,21 +264,21 @@ bool CircleList::pop_back()
   }
   Node *prev = nullptr;
   Node *curr = this->head;
-  while (curr->next)
+  do
   {
     prev = curr;
     curr = curr->next;
-  }
+  } while (curr->next!=this->head);
   delete curr;
-  this->tail= prev;
+  this->tail = prev;
   prev->next = this->head;
   return true;
 }
 
 bool CircleList::empty()
 {
-  if (this->head==nullptr)
+  if (this->head == nullptr)
     return true;
-  
-    return false;
+
+  return false;
 }

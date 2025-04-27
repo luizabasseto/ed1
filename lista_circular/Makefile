@@ -1,7 +1,7 @@
 all:
-	g++ -c list.cpp
+	g++ -c list_circ.cpp
 	g++ -c main.cpp
-	g++ list.o main.o -o main
+	g++ list_circ.o main.o -o main
 
 clean:
-	rm list.o main.o main
+	rm list_circ.o main.o main
