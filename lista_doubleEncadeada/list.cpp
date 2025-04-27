@@ -207,43 +207,38 @@ bool List::insert(int key, int pos)
 bool List::removePos(int pos)
 {
     if (!this->head)
-        return false; // Lista vazia
+        return false; 
 
     Node *aux = this->head;
 
-    // Percorre até o nó desejado
     for (int i = 0; aux && i < pos; i++)
     {
         aux = aux->next;
     }
 
     if (!aux)
-        return false; // Caso a posição seja inválida
+        return false; 
 
-    // Se o nó a ser removido for o único nó
     if (aux->prev == nullptr && aux->next == nullptr)
     {
-        this->head = nullptr; // A lista fica vazia
+        this->head = nullptr; 
     }
-    // Se o nó a ser removido for o primeiro
     else if (aux->prev == nullptr)
     {
         this->head = aux->next;
         aux->next->prev = nullptr;
     }
-    // Se o nó a ser removido for o último
     else if (aux->next == nullptr)
     {
         aux->prev->next = nullptr;
     }
-    // Se o nó estiver no meio
     else
     {
         aux->prev->next = aux->next;
         aux->next->prev = aux->prev;
     }
 
-    delete aux; // Libera a memória do nó removido
+    delete aux;
     return true;
 }
 

@@ -1,4 +1,4 @@
-#include "circle_list.h"
+#include "list_circ.hpp"
 #include <stdio.h>
 #include <iostream>
 
@@ -61,6 +61,10 @@ bool CircleList::pop_front()
 
 bool CircleList::push_back(int key)
 {
+  Node *novo = new Node{key, this->tail};
+  this->tail = novo;
+  this->tail->next = this->head;
+
   return true;
 }
 
@@ -82,6 +86,16 @@ bool CircleList::equals(CircleList *other)
 
 int CircleList::get(int pos)
 {
+  Node *aux = this->head;
+  int n = 0;
+  while (aux != this->head)
+  {
+    if (n == pos)
+      return aux->key;
+    aux = aux->next;
+    n++;
+  }
+
   return 0;
 }
 
@@ -119,6 +133,15 @@ int CircleList::size()
 
 Node *CircleList::find(int key)
 {
+  Node *aux = this->head;
+  while (aux != this->head)
+  {
+    if (aux->key == key)
+    {
+      return aux;
+    }
+    aux = aux->next;
+  }
   return nullptr;
 }
 
@@ -138,12 +161,23 @@ void CircleList::insert_after(int key, Node *pos)
 
 bool CircleList::remove_after(Node *pos)
 {
+  if (!pos)
+  {
+    return false;
+  }
+  Node *aux = pos->next;
+  pos->next = aux->next;
+  if (pos == this->tail)
+  {
+    this->tail = this->head;
+  }
+  delete aux;
   return true;
 }
 
 bool CircleList::insert(int pos, int key)
 {
-  if (pos < 0 || pos > this->size()) //fazer para inserir da mesma forma mesmo que seja inválido
+  if (pos < 0 || pos > this->size()) // fazer para inserir da mesma forma mesmo que seja inválido
   {
     return false; // Posição inválida
   }
@@ -167,20 +201,78 @@ bool CircleList::insert(int pos, int key)
 
 bool CircleList::remove_at(int pos)
 {
+  int n = 0;
+  Node *aux = this->head;
+  if (pos == 0)
+  {
+    pop_front();
+    return true;
+  }
+  for (int i = 0; i < pos - 1 && aux; i++)
+  {
+    aux = aux->next;
+  }
+
+  if (!aux || !aux->next)
+    return false;
+
+  Node *auxx = aux->next;
+  aux->next = aux->next->next;
+  if (aux->next == this->tail) // se o último nó for removido, tail aponta para o anterior a ele.
+  {
+    this->tail = aux;
+  }
+
+  delete auxx;
+
   return true;
 }
 
 bool CircleList::remove(int key)
 {
-  return true;
+  Node *aux = this->head;
+  while (aux != this->head)
+  {
+    if (aux->key == key)
+    {
+      Node *auxx = aux->next;
+      aux->next = aux->next->next;
+      delete auxx;
+      return true;
+    }
+    aux = aux->next;
+  }
+
+  return false;
 }
 
 bool CircleList::pop_back()
 {
+  if (!this->head)
+    return false;
+  if (!this->head->next)
+  {
+    delete this->head;
+    this->head = nullptr;
+    return true;
+  }
+  Node *prev = nullptr;
+  Node *curr = this->head;
+  while (curr->next)
+  {
+    prev = curr;
+    curr = curr->next;
+  }
+  delete curr;
+  this->tail= prev;
+  prev->next = this->head;
   return true;
 }
 
 bool CircleList::empty()
 {
-  return true;
+  if (this->head==nullptr)
+    return true;
+  
+    return false;
 }
