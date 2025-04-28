@@ -67,11 +67,16 @@ bool CircleList::pop_front()
 
 bool CircleList::push_back(int key)
 {
-  Node *novo = new Node{key, this->head};
-  this->tail = novo;
-  this->tail->next = this->head;
-
-  return true;
+  Node* novo = new Node(key, this->head);
+   if (this->head == nullptr) {  // Caso a lista esteja vazia
+        this->head = novo;
+        this->tail = novo;
+        this->tail->next = this->head;  // O tail agora aponta para o head, fechando a lista circular
+    } else {
+        this->tail->next = novo;  // O antigo tail aponta para o novo nó
+        this->tail = novo;        // Atualiza o tail para o novo nó
+    }
+    return true;
 }
 
 bool CircleList::equals(CircleList *other)
@@ -94,13 +99,13 @@ int CircleList::get(int pos)
 {
   Node *aux = this->head;
   int n = 0;
-  while (aux != this->head)
+  do
   {
     if (n == pos)
       return aux->key;
     aux = aux->next;
     n++;
-  }
+  }while (aux != this->head);
 
   return 0;
 }
@@ -140,19 +145,19 @@ int CircleList::size()
 Node *CircleList::find(int key)
 {
   Node *aux = this->head;
-  while (aux != this->head)
-  {
+  do{
     if (aux->key == key)
     {
       return aux;
     }
     aux = aux->next;
-  }
+  }while (aux != this->head);
+
   return nullptr;
 }
 
 void CircleList::insert_after(int key, Node *pos)
-{
+{ //com defeito
   if (!pos)
   {
     return;
@@ -237,8 +242,7 @@ bool CircleList::remove_at(int pos)
 bool CircleList::remove(int key)
 {
   Node *aux = this->head;
-  while (aux != this->head)
-  {
+  do{
     if (aux->key == key)
     {
       Node *auxx = aux->next;
@@ -247,7 +251,7 @@ bool CircleList::remove(int key)
       return true;
     }
     aux = aux->next;
-  }
+  } while (aux != this->head);
 
   return false;
 }
@@ -281,4 +285,18 @@ bool CircleList::empty()
     return true;
 
   return false;
+}
+
+bool CircleList::insert_sorted(int key){ //defeito
+  Node* aux = this->head;
+  do{
+    if(key<aux->key){
+      break;
+    }
+    aux= aux->next;
+  } while(aux!=this->head);
+
+  Node* novo = new Node(key, aux);
+  if(!novo) return false;
+  return true;
 }
