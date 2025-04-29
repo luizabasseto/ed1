@@ -15,15 +15,21 @@ CircleDoubleList::~CircleDoubleList()
 
 bool CircleDoubleList::push_front(int key)
 {
-  Node *novo = new Node{key, this->head, this->head->next};
+  Node *novo = new Node(key);
+
   if (!this->head)
-  {
+  { // Lista vazia
+    novo->next = novo;
+    novo->prev = novo;
     this->head = novo;
-    this->head->prev = novo;
   }
   else
-  {
+  { // Lista não vazia
+    novo->next = this->head;
+    novo->prev = this->head->prev;
     this->head->prev->next = novo;
+    this->head->prev = novo;
+    this->head = novo;
   }
 
   return true;
@@ -33,31 +39,44 @@ bool CircleDoubleList::pop_front()
 {
   if (!this->head)
   {
-    return false; // List is empty
+    return false; // Lista vazia
   }
-  Node *temp = this->head;
-  this->head = this->head->next;
-  delete temp;
-  if (!this->head)
+
+  if (this->head->next == this->head)
   {
-    this->head->prev = nullptr; // lista fica vazia
+    // Só existe 1 elemento
+    delete this->head;
+    this->head = nullptr;
   }
   else
   {
-    this->head->prev->next = this->head; // mantendo a propriedade circular
+    Node *temp = this->head;
+    this->head->prev->next = this->head->next;
+    this->head->next->prev = this->head->prev;
+    this->head = this->head->next;
+    delete temp;
   }
+
   return true;
 }
 
 bool CircleDoubleList::push_back(int key)
 {
-  Node *novo = new Node(key, this->head->prev, this->head);
-  this->head->prev = novo;
-  novo->next = this->head;
-  if (!novo)
-    return false;
+  Node *novo = new Node(key);
 
-  return true;
+  if (!this->head)
+  {
+    novo->next = novo;
+    novo->prev = novo;
+    this->head = novo;
+  }
+  else
+  { // Lista não vazia
+    novo->prev = this->head->prev;
+    novo->next = this->head;
+    this->head->prev->next = novo;
+    this->head->prev = novo;
+  }
 }
 
 bool CircleDoubleList::equals(CircleDoubleList *other)
@@ -66,13 +85,13 @@ bool CircleDoubleList::equals(CircleDoubleList *other)
     return false;
   Node *current1 = this->head;
   Node *current2 = other->head;
-  while (current1 && current2)
+  do
   {
     if (current1->key != current2->key)
       return false;
     current1 = current1->next;
     current2 = current2->next;
-  }
+  } while (current1!=this->head && current2!=this->head);
   return true;
 }
 
@@ -143,22 +162,26 @@ Node *CircleDoubleList::find(int key)
 void CircleDoubleList::insert_after(int key, Node *pos)
 {
   if (!pos)
-  {
     return;
-  }
-  Node *novo = new Node{key, pos->next};
+
+  Node *novo = new Node(key);
+
+  novo->next = pos->next;
+  novo->prev = pos;
+
+  pos->next->prev = novo;
   pos->next = novo;
-  if (novo->next == this->head)
+
+  if (pos == this->head->prev)
   {
-    this->head->prev = novo; // atualiza o tail se necessário
+    // Atualizar o tail (prev do head)
+    this->head->prev = novo;
   }
-  novo->prev = pos; // atualiza o ponteiro prev do novo nó
-  pos->next = novo; // atualiza o ponteiro next do nó anterior
 }
 
 bool CircleDoubleList::remove_after(Node *pos)
 {
-  Node aux = pos->next;
+  Node *aux = pos->next;
   pos->next = aux->next;
   aux->next->prev = pos;
   if (pos == this->head->prev)
@@ -184,13 +207,15 @@ bool CircleDoubleList::insert(int pos, int key)
   {
     current = current->next;
   }
-  Node *novo = new Node{key, current->next};
-  current->next = novo;
+  Node *novo = new Node{key};
   novo->prev = current; // atualiza o ponteiro prev do novo nó
+  novo->next = current->next;
   if (novo->next)
   {
     novo->next->prev = novo; // atualiza o ponteiro prev do próximo nó
   }
+  current->next = novo;
+
   return true;
 }
 
@@ -209,7 +234,7 @@ bool CircleDoubleList::remove_at(int pos)
     }
   }
 
-  Node* auxx = aux->next;
+  Node *auxx = aux->next;
   aux->next->next->prev = aux;
   aux->next = aux->next->next;
   delete auxx;
@@ -256,18 +281,38 @@ bool CircleDoubleList::empty()
   return false;
 }
 
-bool CircleDoubleList::insert_sorted(int key){
-  Node* aux = this->head;
-  do{
-    if(key<aux->key){
+bool CircleDoubleList::insert_sorted(int key)
+{
+  if (!this->head)
+  {
+    // Lista vazia, cria novo nó sozinho
+    Node *novo = new Node(key);
+    novo->next = novo;
+    novo->prev = novo;
+    this->head = novo;
+    return true;
+  }
+
+  Node *aux = this->head;
+  do
+  {
+    if (key < aux->key)
+    {
       break;
     }
-    aux= aux->next;
-  } while(aux!=this->head);
+    aux = aux->next;
+  } while (aux != this->head);
 
-  Node* novo = new Node(key, aux->prev, aux);
-  if(!novo) return false;
+  Node *novo = new Node(key, aux->prev, aux);
+
   aux->prev->next = novo;
   aux->prev = novo;
+
+  if (aux == this->head && key < this->head->key)
+  {
+    // Inserimos antes do head, então head precisa ser atualizado
+    this->head = novo;
+  }
+
   return true;
 }

@@ -32,7 +32,7 @@ int main() {
     std::cout << "Obter elemento na posição 1: " << list.get(1) << std::endl; // Esperado: 10
 
     std::cout << "Procurando o nó com chave 40..." << std::endl;
-    Node* node = list.find(40);
+    Node* node = list.find(20);
     if (node) {
         std::cout << "Nó encontrado com chave: " << node->key << std::endl; // Esperado: 40
     } else {
@@ -66,10 +66,11 @@ int main() {
 
     std::cout << "Comparando listas..." << std::endl;
     CircleList otherList;
-    otherList.push_front(10);
-    otherList.push_front(20);
-    otherList.push_front(30);
-    otherList.push_front(40);
+    otherList.push_back(10);
+    otherList.push_back(20);
+    otherList.push_back(30);
+    otherList.push_back(40);    
+    
     std::cout << "As listas são iguais? " << (list.equals(&otherList) ? "Sim" : "Não") << std::endl; // Esperado: Sim
 
     return 0;
