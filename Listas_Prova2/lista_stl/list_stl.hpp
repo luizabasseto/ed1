@@ -1,62 +1,34 @@
 #include <iostream>
+#include <vector>
+#include <list>
+#include <stack>
+#include <queue>
 
 using namespace std;
 
-class ListSeq
+class ListSTL
 {
 
 public:
-    int size = 0;
-    int capacity;
-    int *data;
+    ListSTL();
 
-    ListSeq(int _capacity);
+    vector<int> vet_to_vector(int v *, int n);
 
-    void destroy(); //feito
+    list<int> vet_to_flist(int *v, int n);
 
-    bool resize(); //feito
+    stack<int> vet_to_stack(int v *, int n);
 
-    bool print(); //feito
+    vector<int> list_concat(list &list1, list &list2);
 
-    int find(int elem); //feito
+    bool check_brackets(string expression);
 
-    int get(int pos); //feito
+    vector<string> vectorize_expression(string expression);
 
-    bool isEmpty(); //feito
+    float calc_posfix(string expression);
 
-    bool isFull(); //feito
+    bool check_posfix(string expression);
 
-    bool add(int elem); //feito
+    float calc_infix(string expression);
 
-    void remove(); //feito
-
-    void insert(int elem, int pos); //feito
-
-    void removeAt(int pos); //feito
-
-    bool addSorted(int elem); //precisa conferir
-
-    int list_get_available(); //feito
-
-    void list_clear(); //feito
-
-    void list_remove_last(int n); //feito
-
-    void list_print_reverse(); //feito
-
-    void list_add(int n, int* vet); //feito
-
-    bool list_is_sorted(); //feito
-
-    void list_reverse(); //feito
-
-    bool list_equal(ListSeq* outra); //feito
-
-    ListSeq* list_from_vector(int n, int* vet); //feito
-
-    ListSeq* list_copy(); //feito
-
-    int list_concat(ListSeq* list2); //conferir
-
+    string posfix_to_infix(string expression);
 };
-
