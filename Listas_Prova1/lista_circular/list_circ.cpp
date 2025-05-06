@@ -67,19 +67,16 @@ bool CircleList::pop_front()
 
 bool CircleList::push_back(int key)
 {
-  Node *novo = new Node(key, this->head);
-  if (this->head == nullptr)
-  { // Caso a lista esteja vazia
-    this->head = novo;
-    this->tail = novo;
-    this->tail->next = this->head; // O tail agora aponta para o head, fechando a lista circular
-  }
-  else
-  {
-    this->tail->next = novo; // O antigo tail aponta para o novo nó
-    this->tail = novo;       // Atualiza o tail para o novo nó
-  }
-  return true;
+  Node* novo = new Node(key, this->head);
+   if (this->head == nullptr) {  // Caso a lista esteja vazia
+        this->head = novo;
+        this->tail = novo;
+        this->tail->next = this->head;  // O tail agora aponta para o head, fechando a lista circular
+    } else {
+        this->tail->next = novo;  // O antigo tail aponta para o novo nó
+        this->tail = novo;        // Atualiza o tail para o novo nó
+    }
+    return true;
 }
 
 bool CircleList::equals(CircleList *other)
@@ -88,13 +85,13 @@ bool CircleList::equals(CircleList *other)
     return false;
   Node *current1 = this->head;
   Node *current2 = other->head;
-  do
+  while (current1 && current2)
   {
     if (current1->key != current2->key)
       return false;
     current1 = current1->next;
     current2 = current2->next;
-  } while (current1!=this->head && current2!=this->head);
+  }
   return true;
 }
 
@@ -108,7 +105,7 @@ int CircleList::get(int pos)
       return aux->key;
     aux = aux->next;
     n++;
-  } while (aux != this->head);
+  }while (aux != this->head);
 
   return 0;
 }
@@ -148,20 +145,19 @@ int CircleList::size()
 Node *CircleList::find(int key)
 {
   Node *aux = this->head;
-  do
-  {
+  do{
     if (aux->key == key)
     {
       return aux;
     }
     aux = aux->next;
-  } while (aux != this->head);
+  }while (aux != this->head);
 
   return nullptr;
 }
 
 void CircleList::insert_after(int key, Node *pos)
-{ // com defeito
+{ //com defeito
   if (!pos)
   {
     return;
@@ -245,47 +241,15 @@ bool CircleList::remove_at(int pos)
 
 bool CircleList::remove(int key)
 {
-  if (this->head == nullptr)
-    return false; // Lista vazia
-
   Node *aux = this->head;
-  Node *prev = nullptr;
-
-  do
-  {
+  do{
     if (aux->key == key)
     {
-      if (aux == this->head)
-      {
-        // Removendo o head
-        if (this->head->next == this->head)
-        {
-          // Só tem um elemento
-          delete this->head;
-          this->head = nullptr;
-        }
-        else
-        {
-          // Mais de um elemento
-          Node *last = this->head;
-          while (last->next != this->head)
-            last = last->next;
-
-          last->next = this->head->next;
-          Node *temp = this->head;
-          this->head = this->head->next;
-          delete temp;
-        }
-      }
-      else
-      {
-        // Removendo qualquer outro nó
-        prev->next = aux->next;
-        delete aux;
-      }
+      Node *auxx = aux->next;
+      aux->next = aux->next->next;
+      delete auxx;
       return true;
     }
-    prev = aux;
     aux = aux->next;
   } while (aux != this->head);
 
@@ -308,7 +272,7 @@ bool CircleList::pop_back()
   {
     prev = curr;
     curr = curr->next;
-  } while (curr->next != this->head);
+  } while (curr->next!=this->head);
   delete curr;
   this->tail = prev;
   prev->next = this->head;
@@ -323,40 +287,16 @@ bool CircleList::empty()
   return false;
 }
 
-bool CircleList::insert_sorted(int key){
-  Node *novo = new Node(key);
-    
-    if (!this->head) {
-        // Lista vazia: novo nó aponta para ele mesmo
-        this->head = novo;
-        novo->next = novo;
-        return true;
+bool CircleList::insert_sorted(int key){ //defeito
+  Node* aux = this->head;
+  do{
+    if(key<aux->key){
+      break;
     }
+    aux= aux->next;
+  } while(aux!=this->head);
 
-    Node *aux = this->head;
-    Node *prev = nullptr;
-
-    // Procurar posição correta
-    do {
-        if (key <= aux->key) break;
-        prev = aux;
-        aux = aux->next;
-    } while (aux != this->head);
-
-    if (prev == nullptr) {
-        // Inserir antes do head
-        Node *last = this->head;
-        while (last->next != this->head)
-            last = last->next;
-        
-        novo->next = this->head;
-        last->next = novo;
-        this->head = novo;
-    } else {
-        // Inserir no meio ou no final
-        prev->next = novo;
-        novo->next = aux;
-    }
-
-    return true;
+  Node* novo = new Node(key, aux);
+  if(!novo) return false;
+  return true;
 }

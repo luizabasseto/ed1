@@ -7,9 +7,6 @@ public:
     Node* prev;
     Node* next;
 
-    Node(int key, Node* prev = nullptr, Node* next = nullptr)
-        : key(key), next(next), prev(prev) {}
-
 };
 
 
