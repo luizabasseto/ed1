@@ -72,5 +72,15 @@ int main()
     string posfixExpr = "6 9 + 3 / 6 4 - *";
     cout << "posfix_to_infix result: " << listSTL.posfix_to_infix(posfixExpr) << endl;
 
+    // Testando a função vectorize_expression
+    string expression = "3 + 5 * (2 - 8)";
+    vector<string> tokens = listSTL.vectorize_expression(expression);
+    cout << "vectorize_expression result: ";
+    for (const string &token : tokens)
+    {
+        cout << token << " ";
+    }
+    cout << endl;
+
     return 0;
 }
