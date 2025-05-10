@@ -118,22 +118,14 @@ float ListSTL::calc_posfix(string expression)
             float a = stk.top();
             stk.pop();
             float result;
-            char op = exp[i][0];
-            switch (op)
-            {
-            case '+':
+            if (exp[i] == "+")
                 result = a + b;
-                break;
-            case '-':
+            else if (exp[i] == "-")
                 result = a - b;
-                break;
-            case '*':
+            else if (exp[i] == "*")
                 result = a * b;
-                break;
-            case '/':
+            else if (exp[i] == "/")
                 result = a / b;
-                break;
-            }
             stk.push(result);
         }
     }
@@ -190,35 +182,36 @@ float ListSTL::calc_infix(string expression)
         {
             while (!operadores.empty() && operadores.top() != '(')
             {
-                float b = operandos.top();
-                operandos.pop();
-                float a = operandos.top();
-                operandos.pop();
-                char op = operadores.top();
-                operadores.pop();
-                float result;
+                char op = operadores.top(); operadores.pop();
+                float b = operandos.top(); operandos.pop();
+                float a = operandos.top(); operandos.pop();
                 switch (op)
                 {
-                case '+':
-                    result = a + b;
-                    break;
-                case '-':
-                    result = a - b;
-                    break;
-                case '*':
-                    result = a * b;
-                    break;
-                case '/':
-                    result = a / b;
-                    break;
+                case '+': operandos.push(a + b); break;
+                case '-': operandos.push(a - b); break;
+                case '*': operandos.push(a * b); break;
+                case '/': operandos.push(a / b); break;
                 }
-
-                operandos.push(result);
             }
-
-            if (!operadores.empty() && operadores.top() == '(')
-                operadores.pop();
+            operadores.pop();
         }
+    }  else // operador: + - * /
+    {
+        char currentOp = exp[i][0];
+        while (!operadores.empty() && precedence(operadores.top()) >= precedence(currentOp))
+        {
+            char op = operadores.top(); operadores.pop();
+            float b = operandos.top(); operandos.pop();
+            float a = operandos.top(); operandos.pop();
+            switch (op)
+            {
+            case '+': operandos.push(a + b); break;
+            case '-': operandos.push(a - b); break;
+            case '*': operandos.push(a * b); break;
+            case '/': operandos.push(a / b); break;
+            }
+        }
+        operadores.push(currentOp);
     }
 
     return operandos.top();
