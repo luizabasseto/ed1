@@ -11,7 +11,8 @@
         "iostream": "cpp",
         "xmemory": "cpp",
         "queue": "cpp",
-        "cmath": "cpp"
+        "cmath": "cpp",
+        "locale": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

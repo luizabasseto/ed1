@@ -11,12 +11,12 @@ ListSTL ::ListSTL() {
 
 };
 
-vector<int> ListSTL::vet_to_vector(int v *, int n)
+vector<int> ListSTL::vet_to_vector(int *v, int n)
 {
     vector<int> vet;
     for (int i = 0; i < n; i++)
     {
-        vet2.push_back(vet[i]);
+        vet.push_back(v[i]);
     }
 
     return vet;
@@ -27,16 +27,16 @@ list<int> ListSTL::vet_to_flist(int *v, int n)
     list<int> listNew;
     for (int i = 0; i < n; i++)
     {
-        listNew.push_front(vet[i]);
+        listNew.push_back(v[i]);
     }
 }
 
-stack<int> ListSTL::vet_to_stack(int v *, int n)
+stack<int> ListSTL::vet_to_stack(int *v, int n)
 {
     stack<int> stk;
     for (int i = 0; i < n; i++)
     {
-        stk.push(vet[i]);
+        stk.push(v[i]);
     }
 
     return stk;
@@ -45,17 +45,14 @@ stack<int> ListSTL::vet_to_stack(int v *, int n)
 vector<int> ListSTL::list_concat(list &list1, list &list2)
 {
     vector<int> vec;
-    int i = 0 while (!list1.empty())
+    for (int val : list1)
     {
-        vec[i] = list1[i];
-        i++;
+        vec.push_back(val);
     }
-    int n = i;
-    i = 0;
-    while (!list2.empty())
+
+    for (int val : list2)
     {
-        vec[n + i] = list1[i];
-        i++;
+        vec.push_back(val);
     }
     return vec;
 }
@@ -112,7 +109,7 @@ float ListSTL::calc_posfix(string expression)
     stack<float> stk;
     for (size_t i = 0; i < exp.size(); i++)
     {
-        if (stoi(exp[i]).isdigit())
+        if (isdigit(stoi(exp[i])))
         {
             stk.push(exp[i]);
         }
@@ -138,7 +135,7 @@ bool ListSTL::check_posfix(string expression)
     int n = 0;
     for (size_t i = 0; i < exp.size(); i++)
     {
-        if (stoi(exp[i]).isdigit())
+        if (isdigit(stoi(exp[i])))
         {
             stk.push(exp[i]);
             n++;
@@ -168,7 +165,7 @@ float ListSTL::calc_infix(string expression)
 
     for (size_t i = 0; i < exp.size(); i++)
     {
-        if (stoi(exp[i]).isdigit())
+        if (isdigit(stoi(exp[i])))
         {
             operandos.push(exp[i]);
         }
@@ -220,7 +217,7 @@ string ListSTL::posfix_to_infix(string expression)
     stack<string> infix;
     for (size_t i = 0; i < expression.length(); i++)
     {
-        if (stoi(expression[i]).isdigit())
+        if (isdigit(stoi(expression[i])))
         {
             infix.push(expression[i]);
         }
@@ -237,4 +234,3 @@ string ListSTL::posfix_to_infix(string expression)
 
     return infix;
 }
-
