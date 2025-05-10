@@ -7,9 +7,7 @@
 
 using namespace std;
 
-ListSTL ::ListSTL() {
-
-};
+ListSTL ::ListSTL() {};
 
 vector<int> ListSTL::vet_to_vector(int *v, int n)
 {
@@ -29,6 +27,7 @@ list<int> ListSTL::vet_to_flist(int *v, int n)
     {
         listNew.push_back(v[i]);
     }
+    return listNew;
 }
 
 stack<int> ListSTL::vet_to_stack(int *v, int n)
@@ -42,7 +41,7 @@ stack<int> ListSTL::vet_to_stack(int *v, int n)
     return stk;
 }
 
-vector<int> ListSTL::list_concat(list &list1, list &list2)
+vector<int> ListSTL::list_concat(list<int> &list1, list<int> &list2)
 {
     vector<int> vec;
     for (int val : list1)
@@ -60,46 +59,45 @@ vector<int> ListSTL::list_concat(list &list1, list &list2)
 bool ListSTL::check_brackets(string expression)
 {
     stack<char> stk;
-    for (size_t i = 0; i < expression.length; i++)
+    for (size_t i = 0; i < expression.length(); i++)
     {
         if (expression[i] == '(' || expression[i] == '[' || expression[i] == '{')
         {
             stk.push(expression[i]);
         }
-
-        if ((expression[i] == ')' && stk.top() == '(') || (expression[i] == ']' && stk.top() == '[') || (expression[i] == '}' && stk.top() == '{'))
+        else if ((expression[i] == ')' && stk.top() == '(') || (expression[i] == ']' && stk.top() == '[') || (expression[i] == '}' && stk.top() == '{'))
         {
+            if (stk.empty())
+                return false;
+
             stk.pop();
         }
-        else
-        {
-            return false;
-        }
     }
 
-    if (stk.empty())
-    {
-        return true;
-    }
+    return stk.empty();
 }
 
 vector<string> ListSTL::vectorize_expression(string expression)
 {
     vector<string> exp;
-    vector<string> temp;
-    int j = 0;
+    string temp;
     for (size_t i = 0; i < expression.length(); i++)
     {
         if (expression[i] != ' ')
         {
-            temp[j] += expression[i];
+            temp += expression[i];  // Corrigido 'tem' para 'temp'
         }
-        else
+        else if (!temp.empty())
         {
             exp.push_back(temp);
-            j++;
+            temp.clear();
         }
     }
+    if (!temp.empty())  // Corrigido 'token' para 'temp'
+    {
+        exp.push_back(temp);
+    }
+
     return exp;
 }
 
@@ -109,19 +107,34 @@ float ListSTL::calc_posfix(string expression)
     stack<float> stk;
     for (size_t i = 0; i < exp.size(); i++)
     {
-        if (isdigit(stoi(exp[i])))
+        if (isdigit(exp[i][0]) || (exp[i][0] == '-' && isdigit(exp[i][1])))
         {
-            stk.push(exp[i]);
+            stk.push(stof(exp[i]));
         }
-
-        if (exp[i] == '+' || exp[i] == '-' || exp[i] == '*' || exp[i] == '/')
+        else if (exp[i] == "+" || exp[i] == "-" || exp[i] == "*" || exp[i] == "/")
         {
-            int b = stk.top();
-            stk.pop;
-            int a = stk.top();
-            stk.pop;
-            int op = stoi(exp[i]) float res = a, op, b;
-            stk.push(res);
+            float b = stk.top();
+            stk.pop();
+            float a = stk.top();
+            stk.pop();
+            float result;
+            char op = exp[i][0];
+            switch (op)
+            {
+            case '+':
+                result = a + b;
+                break;
+            case '-':
+                result = a - b;
+                break;
+            case '*':
+                result = a * b;
+                break;
+            case '/':
+                result = a / b;
+                break;
+            }
+            stk.push(result);
         }
     }
 
@@ -131,22 +144,18 @@ float ListSTL::calc_posfix(string expression)
 bool ListSTL::check_posfix(string expression)
 {
     vector<string> exp = vectorize_expression(expression);
-    stack<float> stk;
     int n = 0;
     for (size_t i = 0; i < exp.size(); i++)
     {
-        if (isdigit(stoi(exp[i])))
+        if (isdigit(exp[i][0]) || (exp[i][0] == '-' && isdigit(exp[i][1])))
         {
-            stk.push(exp[i]);
             n++;
         }
-
-        if (exp[i] == '+' || exp[i] == '-' || exp[i] == '*' || exp[i] == '/')
+        else if (exp[i] == "+" || exp[i] == "-" || exp[i] == "*" || exp[i] == "/")
         {
             if (n >= 2)
             {
-                stk.pop();
-                n = 0;
+                n -= 1;
             }
         }
     }
@@ -165,47 +174,50 @@ float ListSTL::calc_infix(string expression)
 
     for (size_t i = 0; i < exp.size(); i++)
     {
-        if (isdigit(stoi(exp[i])))
+        if (isdigit(exp[i][0]) || (exp[i][0] == '-' && isdigit(exp[i][1])))
         {
-            operandos.push(exp[i]);
+            operandos.push(stof(exp[i]));
         }
-        if (exp[i] == '(')
-            operadores.push(exp[i]);
-
-        if (exp[i] == '+' || exp[i] == '-')
+        else if (exp[i] == "(")
         {
-            operadores.push(exp[i]);
+            operadores.push(exp[i][0]);
         }
-
-        if (exp[i] == '*' || exp[i] == '/')
+        else if (exp[i] == "+" || exp[i] == "-" || exp[i] == "*" || exp[i] == "/")
         {
-            int b = operandos.top();
-            operandos.pop();
-            int a = operandos.top;
-            operandos.pop();
-            char op = operadores.top();
-            operadores.pop();
-            int res = a, op, b;
-
-            operandos.push(res);
+            operadores.push(exp[i][0]);
         }
-
-        if (exp[i] == ')')
+        else if (exp[i] == ")")
         {
-            do
+            while (!operadores.empty() && operadores.top() != '(')
             {
-                int b = operandos.top();
+                float b = operandos.top();
                 operandos.pop();
-                int a = operandos.top;
+                float a = operandos.top();
                 operandos.pop();
                 char op = operadores.top();
                 operadores.pop();
-                int res = a, op, b;
+                float result;
+                switch (op)
+                {
+                case '+':
+                    result = a + b;
+                    break;
+                case '-':
+                    result = a - b;
+                    break;
+                case '*':
+                    result = a * b;
+                    break;
+                case '/':
+                    result = a / b;
+                    break;
+                }
 
-                operandos.push(res);
-            } while (operadores.top() == '(');
+                operandos.push(result);
+            }
 
-            operadores.pop();
+            if (!operadores.empty() && operadores.top() == '(')
+                operadores.pop();
         }
     }
 
@@ -214,23 +226,25 @@ float ListSTL::calc_infix(string expression)
 
 string ListSTL::posfix_to_infix(string expression)
 {
+    vector<string> temp = vectorize_expression(expression);
     stack<string> infix;
-    for (size_t i = 0; i < expression.length(); i++)
+    for (size_t i = 0; i < temp.size(); i++)
     {
-        if (isdigit(stoi(expression[i])))
+        if (isdigit(temp[i][0]))
         {
-            infix.push(expression[i]);
+            infix.push(temp[i]);
         }
 
-        if (expression[i] == '+' || expression[i] == '-' || expression[i] == '*' || expression[i] == '/')
+        if (temp[i] == "+" || temp[i] == "-" || temp[i] == "*" || temp[i] == "/")
         {
-            string a = '(' + infix.top();
-            infix.pop();
             string b = infix.top();
             infix.pop();
-            string exp = strcat(exp, a, expression[i], b, ')');
+            string a = infix.top();
+            infix.pop();
+            string expr = "( " + a + " " + temp[i] + " " + b + " )";
+            infix.push(expr);
         }
     }
 
-    return infix;
+    return infix.top();
 }

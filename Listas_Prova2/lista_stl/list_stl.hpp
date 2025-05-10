@@ -12,13 +12,13 @@ class ListSTL
 public:
     ListSTL();
 
-    vector<int> vet_to_vector(int v *, int n);
+    vector<int> vet_to_vector(int* v, int n);
 
     list<int> vet_to_flist(int *v, int n);
 
-    stack<int> vet_to_stack(int v *, int n);
+    stack<int> vet_to_stack(int* v, int n);
 
-    vector<int> list_concat(list &list1, list &list2);
+    vector<int> list_concat(list<int> &list1, list<int> &list2);
 
     bool check_brackets(string expression);
 

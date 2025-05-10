@@ -1,99 +1,76 @@
 #include <iostream>
-#include <algorithm>
-#include "list_seq.hpp"
-
-using namespace std;
+#include <vector>
+#include <list>
+#include <stack>
+#include <queue>
+#include "list_stl.hpp"
 
 int main()
 {
-    ListSeq list(5);
+    // Criando o objeto da classe ListSTL
+    ListSTL listSTL;
 
-    // Testando a função add
-    cout << "Adicionando elementos na lista:" << endl;
-    list.add(10);
-    list.add(20);
-    list.add(30);
-    list.add(40);
-    list.add(50);
-    list.add(60); // Não será adicionado pois a lista está cheia
-    list.print();
+    // Testando a função vet_to_vector
+    int arr[] = {1, 2, 3, 4, 5};
+    vector<int> vec = listSTL.vet_to_vector(arr, 5);
+    cout << "vet_to_vector: ";
+    for (int v : vec)
+    {
+        cout << v << " ";
+    }
+    cout << endl;
 
-    // Testando a função isFull
-    cout << "A lista está cheia? " << (list.isFull() ? "Sim" : "Não") << endl;
+    // Testando a função vet_to_flist
+    list<int> flist = listSTL.vet_to_flist(arr, 5);
+    cout << "vet_to_flist: ";
+    for (int v : flist)
+    {
+        cout << v << " ";
+    }
+    cout << endl;
 
-    // Testando a função remove
-    cout << "Removendo o último elemento:" << endl;
-    list.remove();
-    list.print();
-
-    // Testando a função removeAt
-    cout << "Removendo o elemento na posição 2:" << endl;
-    list.removeAt(2);
-    list.print();
-
-    // Testando a função find
-    cout << "Procurando o elemento 20 na lista: Índice " << list.find(20) << endl;
-    cout << "Procurando o elemento 99 na lista: Índice " << list.find(99) << endl;
-
-    // Testando a função insert
-    cout << "Inserindo 25 na posição 2:" << endl;
-    list.insert(25, 2);
-    list.print();
-
-    // Testando a função addSorted
-    cout << "Adicionando 35 de forma ordenada:" << endl;
-    list.addSorted(35);
-    list.print();
-
-    // Testando a função list_get_available
-    cout << "Espaço disponível na lista: " << list.list_get_available() << endl;
-
-    // Testando a função list_clear
-    cout << "Limpando a lista:" << endl;
-    list.list_clear();
-    list.print();
-
-    // Testando a função list_add
-    int vet[] = {10, 20, 30};
-    cout << "Adicionando um vetor de elementos:" << endl;
-    list.list_add(3, vet);
-    list.print();
-
-    // Testando a função list_is_sorted
-    cout << "A lista está ordenada? " << (list.list_is_sorted() ? "Sim" : "Não") << endl;
-
-    // Testando a função list_reverse
-    cout << "Invertendo a lista:" << endl;
-    list.list_reverse();
-    list.print();
-
-    // Testando a função list_equal
-    ListSeq list2(5);
-    list2.list_add(3, vet);
-    list.list_reverse();
-    cout << "As duas listas são iguais? " << (list.list_equal(&list2) ? "Sim" : "Não") << endl;
-
-    // Testando a função list_from_vector
-    cout << "Criando uma lista a partir de um vetor:" << endl;
-    ListSeq* newList = list.list_from_vector(3, vet);
-    newList->print();
-
-    // Testando a função list_copy
-    cout << "Copiando a lista:" << endl;
-    ListSeq* copiedList = list.list_copy();
-    copiedList->print();
+    // Testando a função vet_to_stack
+    stack<int> stk = listSTL.vet_to_stack(arr, 5);
+    cout << "vet_to_stack: ";
+    while (!stk.empty())
+    {
+        cout << stk.top() << " ";
+        stk.pop();
+    }
+    cout << endl;
 
     // Testando a função list_concat
-    int vet2[] = {40, 50, 60};
-    ListSeq list3(10);
-    list3.list_add(3, vet2);
-    cout << "Concatenando a lista 3 à lista original:" << endl;
-    list.list_concat(&list3);
-    list.print();
+    list<int> list1 = {1, 2, 3};
+    list<int> list2 = {4, 5, 6};
+    vector<int> concatenated = listSTL.list_concat(list1, list2);
+    cout << "list_concat: ";
+    for (int v : concatenated)
+    {
+        cout << v << " ";
+    }
+    cout << endl;
 
-    // Limpando a memória dos ponteiros dinâmicos
-    delete newList;
-    delete copiedList;
+    // Testando a função check_brackets
+    string expression1 = "[(x + 8) * (9-2)]";
+    string expression2 = "[(x + 8) * (9-2]";
+    cout << "check_brackets (expression 1): " << listSTL.check_brackets(expression1) << endl;
+    cout << "check_brackets (expression 2): " << listSTL.check_brackets(expression2) << endl;
+
+    // Testando a função calc_posfix
+    string postfix = "24 32 + 2 / 41 5 * +";
+    cout << "calc_posfix result: " << listSTL.calc_posfix(postfix) << endl;
+
+    // Testando a função check_posfix
+    string postfixExpr = "24 32 + 2 / 41 5 * +";
+    cout << "check_posfix result: " << listSTL.check_posfix(postfixExpr) << endl;
+
+    // Testando a função calc_infix
+    string infixExpr = "((6 + 9) / 3) * (6 - 4)";
+    cout << "calc_infix result: " << listSTL.calc_infix(infixExpr) << endl;
+
+    // Testando a função posfix_to_infix
+    string posfixExpr = "6 9 + 3 / 6 4 - *";
+    cout << "posfix_to_infix result: " << listSTL.posfix_to_infix(posfixExpr) << endl;
 
     return 0;
 }
