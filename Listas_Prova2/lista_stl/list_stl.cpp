@@ -85,7 +85,7 @@ vector<string> ListSTL::vectorize_expression(string expression)
     {
         if (expression[i] != ' ')
         {
-            temp += expression[i];  // Corrigido 'tem' para 'temp'
+            temp += expression[i]; 
         }
         else if (!temp.empty())
         {
@@ -93,7 +93,7 @@ vector<string> ListSTL::vectorize_expression(string expression)
             temp.clear();
         }
     }
-    if (!temp.empty())  // Corrigido 'token' para 'temp'
+    if (!temp.empty())  
     {
         exp.push_back(temp);
     }
