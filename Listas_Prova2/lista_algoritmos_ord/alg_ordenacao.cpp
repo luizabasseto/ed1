@@ -42,3 +42,18 @@ bool ListAlg_ordenacao::bubble_sort(vector<T> vec)
 bool ListAlg_ordenacao::insertionSort(vector<T> vec){
 
 }
+
+bool ListAlg_ordenacao::selectionSort(vector<T> vec){
+    int min=vec[0];
+    int n = sizeof(vec);
+    for (size_t i = 0; i < n; i++)
+    {
+        min=vec[i];
+        for (size_t j = 0; j < count; j++)
+        {
+            /* code */
+        }
+        
+    }
+    
+}
