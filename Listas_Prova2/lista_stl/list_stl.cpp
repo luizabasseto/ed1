@@ -85,7 +85,7 @@ vector<string> ListSTL::vectorize_expression(string expression)
     {
         if (expression[i] != ' ')
         {
-            temp += expression[i]; 
+            temp += expression[i];
         }
         else if (!temp.empty())
         {
@@ -93,7 +93,7 @@ vector<string> ListSTL::vectorize_expression(string expression)
             temp.clear();
         }
     }
-    if (!temp.empty())  
+    if (!temp.empty())
     {
         exp.push_back(temp);
     }
@@ -172,49 +172,55 @@ float ListSTL::calc_infix(string expression)
         }
         else if (exp[i] == "(")
         {
-            operadores.push(exp[i][0]);
-        }
-        else if (exp[i] == "+" || exp[i] == "-" || exp[i] == "*" || exp[i] == "/")
-        {
-            operadores.push(exp[i][0]);
+            operadores.push('(');
         }
         else if (exp[i] == ")")
         {
             while (!operadores.empty() && operadores.top() != '(')
             {
-                char op = operadores.top(); operadores.pop();
-                float b = operandos.top(); operandos.pop();
-                float a = operandos.top(); operandos.pop();
+                char op = operadores.top();
+                operadores.pop();
+                float b = operandos.top();
+                operandos.pop();
+                float a = operandos.top();
+                operandos.pop();
+
                 switch (op)
                 {
-                case '+': operandos.push(a + b); break;
-                case '-': operandos.push(a - b); break;
-                case '*': operandos.push(a * b); break;
-                case '/': operandos.push(a / b); break;
+                case '+':
+                    operandos.push(a + b);
+                    break;
+                case '-':
+                    operandos.push(a - b);
+                    break;
+                case '*':
+                    operandos.push(a * b);
+                    break;
+                case '/':
+                    operandos.push(a / b);
+                    break;
                 }
             }
-            operadores.pop();
+
+            if (!operadores.empty())
+                operadores.pop(); // remove '('
         }
-    }  else // operador: + - * /
-    {
-        char currentOp = exp[i][0];
-        while (!operadores.empty() && precedence(operadores.top()) >= precedence(currentOp))
+        else // operador
         {
-            char op = operadores.top(); operadores.pop();
-            float b = operandos.top(); operandos.pop();
-            float a = operandos.top(); operandos.pop();
-            switch (op)
-            {
-            case '+': operandos.push(a + b); break;
-            case '-': operandos.push(a - b); break;
-            case '*': operandos.push(a * b); break;
-            case '/': operandos.push(a / b); break;
-            }
+            operadores.push(exp[i][0]); // apenas empilha
         }
-        operadores.push(currentOp);
     }
 
     return operandos.top();
+}
+
+int ListSTL::precedence(char op)
+{
+    if (op == '+' || op == '-')
+        return 1;
+    if (op == '*' || op == '/')
+        return 2;
+    return 0;
 }
 
 string ListSTL::posfix_to_infix(string expression)

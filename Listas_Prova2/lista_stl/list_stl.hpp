@@ -31,4 +31,6 @@ public:
     float calc_infix(string expression);
 
     string posfix_to_infix(string expression);
+
+    int precedence(char op);
 };
