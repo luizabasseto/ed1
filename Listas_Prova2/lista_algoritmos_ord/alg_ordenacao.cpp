@@ -31,10 +31,8 @@ bool ListAlg_ordenacao::bubble_sort(vector<T> vec)
         if (vec[n]>vec[n+1])
         {
          return false;
-        }
-        
+        }   
     }
-
     return true;
     
 }
