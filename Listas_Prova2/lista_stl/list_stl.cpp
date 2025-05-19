@@ -81,20 +81,31 @@ vector<string> ListSTL::vectorize_expression(string expression)
 {
     vector<string> exp;
     string temp;
+
     for (size_t i = 0; i < expression.length(); i++)
     {
-        if (expression[i] != ' ')
-        {
-            temp += expression[i];
+        char ch = expression[i];
+
+        if (isspace(ch)) {
+            if (!temp.empty()) {
+                exp.push_back(temp);
+                temp.clear();
+            }
         }
-        else if (!temp.empty())
+        else if (ch == '(' || ch == ')' || ch == '+' || ch == '-' || ch == '*' || ch == '/')
         {
-            exp.push_back(temp);
-            temp.clear();
+            if (!temp.empty()) {
+                exp.push_back(temp);
+                temp.clear();
+            }
+            exp.push_back(string(1, ch)); 
+        }
+        else {
+            temp += ch; 
         }
     }
-    if (!temp.empty())
-    {
+
+    if (!temp.empty()) {
         exp.push_back(temp);
     }
 

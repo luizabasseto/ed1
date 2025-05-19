@@ -65,7 +65,7 @@ int main()
     cout << "check_posfix result: " << listSTL.check_posfix(postfixExpr) << endl;
 
     // Testando a função calc_infix
-    string infixExpr = "((6 + 9) / 3) * (6 - 4)";
+    string infixExpr = "(((6 + 9) / 3) * (6 - 4))";
     cout << "calc_infix result: " << listSTL.calc_infix(infixExpr) << endl;
 
     // Testando a função posfix_to_infix
