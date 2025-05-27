@@ -12,7 +12,6 @@ int fib(int n, vector<int> &mem)
     }
     else if (n >= mem.size())
     {
-        cout << "N: " << n << "- Valor: " << mem[n] << endl;
         mem.push_back(fib(n - 1, mem));
     }
 
