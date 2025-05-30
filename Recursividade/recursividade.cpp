@@ -123,6 +123,6 @@ void Recursividade::copy(list<int> &list1, list<int>::iterator &it, list<int> &l
     if (list2.size() < list1.size())
     {
         list1.push_back(list1[idx]);
-        return copy(list1, idx++, list2);
+        return copy(list1, it++, list2);
     }
 }
