@@ -29,9 +29,9 @@ int main() {
     cout << "\n\n";
 
     cout << "print_even:" << endl;
-    rec.print_even(vec, 0);
+    rec.print_even(vec, vec.size()-1);
     cout << "\n\n";
-/*
+
     list<int> lst = {10, 20, 30, 40};
     auto it_list = lst.begin();
     cout << "print_list:" << endl;
@@ -81,7 +81,7 @@ int main() {
     for (int val : l2) {
         cout << val << " ";
     }
-    cout << "\n";*/
+    cout << "\n";
 
     return 0;
 }

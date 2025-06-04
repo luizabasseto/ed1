@@ -29,9 +29,9 @@ public:
 
     void remove_all(vector<int> &vec);
 
-    void print_stack(stack<int> &stk);
+    void print_stack(stack<int> stk);
 
-    void push_to(stack<int> &stk1, stack<int> &stk2);
+    void push_to(stack<int> stk1, stack<int> &stk2);
 
     void copy(vector<int> &vec1, int idx, vector<int> &vec2);
 
