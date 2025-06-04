@@ -1,5 +1,6 @@
 all:
+	g++ -c recursividade.cpp
 	g++ -c main.cpp
-	g++ main.o -o main
+	g++ recursividade.o main.o -o main
 clean:
-	rm main.o main
+	rm recursividade.o main.o main
