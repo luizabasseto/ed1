@@ -13,17 +13,17 @@ class Recursividade
 public:
     Recursividade();
 
-    int potencia(int num, int expoente);
+    int potencia(int num, int expoente); //feito
 
-    int mdc(int a, int b);
+    int mdc(int a, int b); //feito
 
     void subconjuntos();
 
-    int BuscaBinaria(vector<int> &vet, int elem, int low, int high);
+    int BuscaBinaria(vector<int> &vet, int elem, int low, int high); //feito
 
     void ProblemaNRainhas(int n);
 
-    int soma_digitos(int n);
+    int soma_digitos(int n); //feito
 
     void inverterString(std::string text, int index);
 
