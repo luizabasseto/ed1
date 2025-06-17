@@ -15,11 +15,11 @@ public:
 
     int potencia(int num, int expoente);
 
-    float mdc(int a, int b);
+    int mdc(int a, int b);
 
-    void Subconjuntos(Backtracking);
+    void subconjuntos();
 
-    int BuscaBinaria(vector<int> vector, int elem, int low, int high)
+    int BuscaBinaria(vector<int> &vet, int elem, int low, int high);
 
     void ProblemaNRainhas(int n);
 
@@ -30,3 +30,4 @@ public:
     float combinacoes(int n, int k);
 
     void palindromo(std::string text, int index);
+};
