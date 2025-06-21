@@ -19,15 +19,18 @@ public:
 
     void subconjuntos();
 
+    void permutacao(string text, int index, int n); 
+
     int BuscaBinaria(vector<int> &vet, int elem, int low, int high); //feito
 
-    void ProblemaNRainhas(int n);
+    void ProblemaNRainhas(vector<vector<int>> mat, int row, int col);
 
     int soma_digitos(int n); //feito
 
-    void inverterString(std::string text, int index);
+    void inverterString(std::string text, int index); //feito
 
-    float combinacoes(int n, int k);
+    float combinacoes(int n, int k); //feito
 
-    void palindromo(std::string text, int index);
+    void palindromo(std::string text, int index); //feito
+
 };
