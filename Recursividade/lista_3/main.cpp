@@ -29,9 +29,10 @@ int main()
     else
         cout << "Busca binaria: elemento " << elemento << " nao encontrado." << endl;
 
-    /*  cout << "Solucoes para o problema das 4 rainhas:" << endl;
-    r.ProblemaNRainhas(4);
-*/
+    cout << "Solucoes para o problema das 8 rainhas:" << endl;
+    std::vector<std::vector<int>> mat(8, std::vector<int>(8, 0));
+    r.ProblemaNRainhas(mat,0);
+
     cout << "Soma dos digitos de 12345 = " << r.soma_digitos(12345) << endl;
 
     cout << "Inverter string 'recursao': ";

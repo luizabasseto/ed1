@@ -107,10 +107,38 @@ float Recursividade::combinacoes(int n, int k)
     }
     else
     {
-        return combinacoes(n-1,k)+combinacoes(n-1,k-1);
+        return combinacoes(n - 1, k) + combinacoes(n - 1, k - 1);
     }
 }
 
-void Recursividade::ProblemaNRainhas(vector<vector<int>> mat, int row, int col){
-    
+void print_matriz(const vector<vector<int>> &tabuleiro, int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            cout << tabuleiro[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << "---------------------" << endl;
+}
+
+void Recursividade::ProblemaNRainhas(vector<vector<int>> &mat, int row)
+{
+    if (row == 8)
+    {
+        print_matriz(mat, 8);
+        return;
+    }
+    int coluna;
+    if (row < 4) {
+        coluna = row * 2; 
+    } else {
+        coluna = (row - 4) * 2 + 1;
+    }
+
+    mat[row][coluna] = 1;
+
+    ProblemaNRainhas(mat, row + 1);
 }

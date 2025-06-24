@@ -23,7 +23,7 @@ public:
 
     int BuscaBinaria(vector<int> &vet, int elem, int low, int high); //feito
 
-    void ProblemaNRainhas(vector<vector<int>> mat, int row, int col);
+    void ProblemaNRainhas(vector<vector<int>>& mat, int row);
 
     int soma_digitos(int n); //feito
 
