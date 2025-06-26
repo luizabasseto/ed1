@@ -13,13 +13,16 @@ int main()
 
     cout << "MDC de 48 e 18 = " << r.mdc(48, 18) << endl;
 
-    /* cout << "Permutacoes da string 'ABC': " << endl;
-    r.permutacao("ABC", 0, 2);
+    cout << "Permutacoes da string 'ABC': " << endl;
+    r.permutacao("ABC", 0);
 
-    cout << "Subconjuntos do vetor {1, 2, 3}:" << endl;
-    vector<int> conjunto = {1, 2, 3};
-    vector<int> subconjunto;
-    r.subconjuntos(conjunto, 0, subconjunto);*/
+    cout << "Subconjuntos da string 'ABC': " << endl;
+
+    string entrada = "abc";
+    string atual = "";       // subconjunto parcial (inicialmente vazio)
+    int i = 0;               // índice inicial
+
+    r.subconjuntos(entrada, i, atual);
 
     vector<int> vetor = {1, 3, 5, 7, 9, 11, 13};
     int elemento = 7;

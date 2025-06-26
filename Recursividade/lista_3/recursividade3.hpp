@@ -17,13 +17,13 @@ public:
 
     int mdc(int a, int b); //feito
 
-    void subconjuntos();
+    void subconjuntos(string &s, int i, string atual);
 
-    void permutacao(string text, int index, int n); 
+    void permutacao(string s, size_t ini); 
 
     int BuscaBinaria(vector<int> &vet, int elem, int low, int high); //feito
 
-    void ProblemaNRainhas(vector<vector<int>>& mat, int row);
+    void ProblemaNRainhas(vector<vector<int>>& mat, int row); //feito
 
     int soma_digitos(int n); //feito
 
@@ -32,5 +32,7 @@ public:
     float combinacoes(int n, int k); //feito
 
     void palindromo(std::string text, int index); //feito
+
+    void troca(size_t i, string s, size_t ini); //feito
 
 };

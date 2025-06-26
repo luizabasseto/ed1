@@ -132,13 +132,52 @@ void Recursividade::ProblemaNRainhas(vector<vector<int>> &mat, int row)
         return;
     }
     int coluna;
-    if (row < 4) {
-        coluna = row * 2; 
-    } else {
+    if (row < 4)
+    {
+        coluna = row * 2;
+    }
+    else
+    {
         coluna = (row - 4) * 2 + 1;
     }
 
     mat[row][coluna] = 1;
 
     ProblemaNRainhas(mat, row + 1);
+}
+
+void Recursividade::troca(size_t i, string s, size_t ini)
+{
+    swap(s[ini], s[i]);     // troca o atual
+    permutacao(s, ini + 1); // permuta
+    swap(s[ini], s[i]);     // backtracking
+    if (i == s.size() - 1)
+        return;
+    troca(i + 1, s, ini);
+}
+
+void Recursividade::permutacao(string s, size_t ini)
+{
+    if (ini == s.size() - 1)
+    {
+        cout << s << endl;
+        return;
+    }
+
+    troca(ini, s, ini);
+}
+
+void Recursividade::subconjuntos(string &s, int i, string atual)
+{
+    if (i == s.size())
+    {
+        cout << "{" << atual << "}" << endl;
+        return;
+    }
+
+    // Caso 1: incluir s[i]
+    subconjuntos(s, i + 1, atual + s[i]);
+
+    // Caso 2: não incluir s[i]
+    subconjuntos(s, i + 1, atual);
 }
